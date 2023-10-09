@@ -1,0 +1,2093 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+	
+	<!-- title -->
+	
+	<title>
+	
+		《Python 数据科学实践指南》读书笔记 | 
+	 
+	zYx.Tom的个人博客
+	</title>
+	
+	<!-- keywords,description -->
+	
+		<meta name="keywords" content="工作笔记, 图像处理, 图形处理, Python, PyTorch, Ubuntu, Git, 开发工具, AI, 人工智能, 神经网络" />
+	
+	
+		<meta name="description" content="湖南大学92级本科，浙江大学99级硕士，电子科技大学09级博士。具备2D图像、3D图形方面的AI研究和产品落地能力。" />
+	
+
+	<!-- favicon -->
+	
+	<link rel="shortcut icon" href="/images/avatar.png">
+	
+
+
+	<!-- search -->
+	<script>
+		var searchEngine = "https://www.baidu.com/s?wd=";
+		if(typeof searchEngine == "undefined" || searchEngine == null || searchEngine == ""){
+			searchEngine = "https://www.google.com/search?q=";
+		}
+		var homeHost = "zhuyuanxiang.github.io";
+		if(typeof homeHost == "undefined" || homeHost == null || homeHost == ""){
+			homeHost = window.location.host;
+		}
+	</script>
+
+
+	
+<link rel="stylesheet" href="/css/main.css">
+
+	
+<link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.17.1/build/styles/darcula.min.css">
+
+	
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+
+
+	
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.0/dist/jquery.min.js"></script>
+
+	
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+	
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.17.1/build/highlight.min.js"></script>
+
+	
+<script src="https://cdn.jsdelivr.net/npm/jquery-pjax@2.0.1/jquery.pjax.min.js"></script>
+
+	
+<script src="/js/main.js"></script>
+
+
+	
+		
+<script src="https://cdn.jsdelivr.net/npm/leancloud-storage/dist/av-min.js"></script>
+
+		
+<script src="https://cdn.jsdelivr.net/npm/valine@v1.5.1/dist/Valine.min.js"></script>
+
+	
+	
+		<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+	
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+	<header id="header">
+    <a id="title" href="/" class="logo">zYx.Tom的个人博客</a>
+
+	<ul id="menu">
+    
+      <li class="menu-item">
+        <a href="/about" class="menu-item-link">About</a>
+      </li>
+    
+
+    
+      <li class="menu-item">
+        <a href="/tags" class="menu-item-link">Tags</a>
+      </li>
+    
+
+    
+      <li class="menu-item">
+        <a href="/categories" class="menu-item-link">Categories</a>
+      </li>
+    
+
+    
+      
+      
+        <li class="menu-item">
+          <a href='https://weibo.com/ygpfr' class="menu-item-link" target="_blank">
+            Weibo
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a href='https://www.douban.com/people/zhuyuanxiang/' class="menu-item-link" target="_blank">
+            Douban
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a href='mailto:zhuyuanxiang@gmail.com' class="menu-item-link" target="_blank">
+            E-Mail
+          </a>
+        </li>
+      
+    
+  
+    
+      <li class="menu-item">
+        <a href='https://github.com/zhuyuanxiang' class="menu-item-link" target="_blank">
+          <i class="fa fa-github fa-2x"></i>
+        </a>
+      </li>
+    
+	</ul>
+</header>
+
+	
+<div id="sidebar">
+	<button id="sidebar-toggle" class="toggle" ><i class="fa fa-arrow-right " aria-hidden="true"></i></button>
+	
+	<div id="site-toc">
+		<input id="search-input" class="search-input" type="search" placeholder="Press Enter to search">
+		<div id="tree">
+			
+
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										bookmarks
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/bookmarks/%E5%9B%BE%E4%B9%A6%E5%88%97%E8%A1%A8/">
+                     
+										    待借图书列表
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/bookmarks/%E7%BD%91%E7%AB%99%E5%88%97%E8%A1%A8/">
+                     
+										    重要网站
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										医学健康
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E5%8C%BB%E5%AD%A6%E5%81%A5%E5%BA%B7/%E4%B8%AD%E5%8C%BB%E5%85%BB%E7%94%9F%E6%88%90%E6%96%B9/">
+                     
+										    中医养生
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										基础理论
+									</a>
+									
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										数学
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/%E6%95%B0%E5%AD%A6/%E6%95%B0%E5%AD%A6%E8%A7%A3%E7%9A%84%E5%88%86%E7%B1%BB/">
+                     
+										    数学解的分类
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										工作日志
+									</a>
+									
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										2020
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E5%B7%A5%E4%BD%9C%E6%97%A5%E5%BF%97/2020/2020%E5%B9%B404%E6%9C%88%E6%97%A5%E8%AE%B0/">
+                     
+										    2020 年 04 月日记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E5%B7%A5%E4%BD%9C%E6%97%A5%E5%BF%97/2020/2020%E5%B9%B405%E6%9C%88%E6%97%A5%E8%AE%B0/">
+                     
+										    2020 年 05 月日记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E5%B7%A5%E4%BD%9C%E6%97%A5%E5%BF%97/2020/2020%E5%B9%B406%E6%9C%88%E6%97%A5%E8%AE%B0/">
+                     
+										    2020 年 06 月日记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E5%B7%A5%E4%BD%9C%E6%97%A5%E5%BF%97/2020/2020%E5%B9%B407%E6%9C%88%E6%97%A5%E8%AE%B0/">
+                     
+										    2020 年 07 月日记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E5%B7%A5%E4%BD%9C%E6%97%A5%E5%BF%97/2020/2020%E5%B9%B408%E6%9C%88%E6%97%A5%E8%AE%B0/">
+                     
+										    2020 年 08 月日记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E5%B7%A5%E4%BD%9C%E6%97%A5%E5%BF%97/2020/2020%E5%B9%B409%E6%9C%88%E6%97%A5%E8%AE%B0/">
+                     
+										    2020 年 09 月日记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E5%B7%A5%E4%BD%9C%E6%97%A5%E5%BF%97/2020/2020%E5%B9%B410%E6%9C%88%E6%97%A5%E8%AE%B0/">
+                     
+										    2020 年 10 月日记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E5%B7%A5%E4%BD%9C%E6%97%A5%E5%BF%97/2020/2020%E5%B9%B411%E6%9C%88%E6%97%A5%E8%AE%B0/">
+                     
+										    2020 年 11 月日记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E5%B7%A5%E4%BD%9C%E6%97%A5%E5%BF%97/2020/2020%E5%B9%B412%E6%9C%88%E6%97%A5%E8%AE%B0/">
+                     
+										    2020 年 12 月日记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										2021
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E5%B7%A5%E4%BD%9C%E6%97%A5%E5%BF%97/2021/2021%E5%B9%B401%E6%9C%88%E6%97%A5%E8%AE%B0/">
+                     
+										    2021 年 01 月日记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E5%B7%A5%E4%BD%9C%E6%97%A5%E5%BF%97/2021/2021%E5%B9%B402%E6%9C%88%E6%97%A5%E8%AE%B0/">
+                     
+										    2021 年 02 月日记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E5%B7%A5%E4%BD%9C%E6%97%A5%E5%BF%97/2021/2021%E5%B9%B403%E6%9C%88%E6%97%A5%E8%AE%B0/">
+                     
+										    2021 年 03 月日记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E5%B7%A5%E4%BD%9C%E6%97%A5%E5%BF%97/2021/2021%E5%B9%B404%E6%9C%88%E6%97%A5%E8%AE%B0/">
+                     
+										    2021 年 04 月日记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E5%B7%A5%E4%BD%9C%E6%97%A5%E5%BF%97/2021/2021%E5%B9%B405%E6%9C%88%E6%97%A5%E8%AE%B0/">
+                     
+										    2021 年 05 月日记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E5%B7%A5%E4%BD%9C%E6%97%A5%E5%BF%97/2021/2021%E5%B9%B406%E6%9C%88%E6%97%A5%E8%AE%B0/">
+                     
+										    2021 年 06 月日记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E5%B7%A5%E4%BD%9C%E6%97%A5%E5%BF%97/2021/2021%E5%B9%B407%E6%9C%88%E6%97%A5%E8%AE%B0/">
+                     
+										    2021 年 07 月日记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										2023
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E5%B7%A5%E4%BD%9C%E6%97%A5%E5%BF%97/2023/2023%E5%B9%B408%E6%9C%88%E6%97%A5%E8%AE%B0/">
+                     
+										    2023 年 08 月日记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E5%B7%A5%E4%BD%9C%E6%97%A5%E5%BF%97/2023/2023%E5%B9%B409%E6%9C%88%E6%97%A5%E8%AE%B0/">
+                     
+										    2023 年 09月日记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E5%B7%A5%E4%BD%9C%E6%97%A5%E5%BF%97/2023/2023%E5%B9%B410%E6%9C%88%E6%97%A5%E8%AE%B0/">
+                     
+										    2023 年 10月日记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										操作系统
+									</a>
+									
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										Linux
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Linux/Linux%20%E7%89%88%E6%9C%AC%E5%AF%B9%E6%AF%94/">
+                     
+										    Linux 版本对比
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										Ubuntu
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Linux/Ubuntu/Squid/">
+                     
+										    Squid
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Linux/Ubuntu/Ubuntu-16/">
+                     
+										    Ubuntu 16使用指南
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Linux/Ubuntu/Ubuntu-Remote-Desktop/">
+                     
+										    Ubuntu Remote Services
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Linux/Ubuntu/Ubuntu-zsh/">
+                     
+										    Ubuntu的ZSH安装说明
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Linux/Ubuntu/Ubuntu/">
+                     
+										    Ubuntu 学习日志
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										NAS
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/NAS/NAS/">
+                     
+										    小企业的NAS932+的安装过程
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Thunderbot%20911%20%E9%BB%91%E6%AD%A6%E5%A3%AB%20II/">
+                     
+										    Thunderbot 911 黑武士 II
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										Windows
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Windows/Beyond-Compare/">
+                     
+										    Beyond Compare Evaluate 方法
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Windows/Windows10/">
+                     
+										    Windows 10 学习日志
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Windows/Windows7/">
+                     
+										    Windows 7 学习日志
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Windows/%E7%94%B5%E8%84%91%E7%83%AD%E9%94%AE%E5%86%B2%E7%AA%81%E6%A3%80%E6%B5%8B/">
+                     
+										    电脑热键冲突检测
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										机器学习
+									</a>
+									
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										开发框架
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/Neuroph%20%E5%BC%80%E5%8F%91%E8%BF%87%E7%A8%8B/">
+                     
+										    Neuroph 开发过程
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/PyTorch-DataLoader%E5%AD%A6%E4%B9%A0%E5%85%B3%E9%94%AE%E7%82%B9%E6%80%BB%E7%BB%93/">
+                     
+										    PyTorch-DataLoader学习关键点总结
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/Scikit-Learn%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+                     
+										    Scikit-Learn学习笔记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/Tensorflow-and-Keras%E4%BD%BF%E7%94%A8%E5%BF%83%E5%BE%97/">
+                     
+										    Tensorflow-and-Keras使用心得
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										机器学习
+									</a>
+									
+							<ul>
+								<li class="file active">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E3%80%8APython%20%E6%95%B0%E6%8D%AE%E7%A7%91%E5%AD%A6%E5%AE%9E%E8%B7%B5%E6%8C%87%E5%8D%97%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
+                     
+										    《Python 数据科学实践指南》读书笔记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E3%80%8A%E5%AE%9E%E7%94%A8%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E3%80%8B%E7%9A%84%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
+                     
+										    《实用机器学习》的读书笔记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E3%80%8A%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E3%80%8B%E7%9A%84%E6%80%9D%E8%80%83/">
+                     
+										    《机器学习》的思考
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E3%80%8A%E6%A6%82%E7%8E%87%E5%9B%BE%E6%A8%A1%E5%9E%8B%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+                     
+										    《概率图模型》学习笔记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E3%80%8A%E6%A8%A1%E5%BC%8F%E8%AF%86%E5%88%AB%E4%B8%8E%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E3%80%8B%E7%9A%84%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
+                     
+										    《模式识别与机器学习》的读书笔记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E3%80%8A%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95%E3%80%8B%E7%9A%84%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
+                     
+										    《统计学习方法》的读书笔记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										神经网络
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/%E3%80%8APython%20%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E3%80%8B%E7%9A%84%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
+                     
+										    《Python 神经网络编程》的读书笔记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/%E3%80%8A%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E3%80%8B%E7%9A%84%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
+                     
+										    《神经网络与机器学习》的读书笔记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/%E3%80%8A%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%AE%97%E6%B3%95%E4%B8%8E%E5%AE%9E%E7%8E%B0-%E5%9F%BA%E4%BA%8E%20Java%20%E8%AF%AD%E8%A8%80%E3%80%8B%E7%9A%84%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
+                     
+										    《神经网络算法与实现-基于 Java 语言》的读书笔记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										自然语言处理
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/Gensim%20%E5%AD%A6%E4%B9%A0%E5%85%B3%E9%94%AE%E7%82%B9%E6%80%BB%E7%BB%93/">
+                     
+										    Gensim 学习关键点总结
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/%E3%80%8APython%20%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+                     
+										    《Python 自然语言处理》学习笔记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/%E3%80%8A%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+                     
+										    《自然语言处理》学习笔记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E7%BB%BC%E8%AE%BA/">
+                     
+										    《自然语言处理综论》学习笔记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E9%9D%A2%E8%AF%95%E5%B8%B8%E9%97%AE%E9%97%AE%E9%A2%98/">
+                     
+										    自然语言处理面试常问问题
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										计算机视觉
+									</a>
+									
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										三维图形
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E4%B8%89%E7%BB%B4%E5%9B%BE%E5%BD%A2/%E4%B8%89%E7%BB%B4%E5%9B%BE%E5%BD%A2%E5%AD%A6%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E6%BE%84%E6%B8%85/">
+                     
+										    3D图形学基本概念澄清
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E4%B8%89%E7%BB%B4%E5%9B%BE%E5%BD%A2/%E4%B8%89%E7%BB%B4%E5%9B%BE%E5%BD%A2%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E7%82%B9%E6%B1%87%E6%80%BB/">
+                     
+										    3D 相关知识点汇总
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										设计模式
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E3%80%8AHead%20First%20%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
+                     
+										    《Head First 设计模式》读书笔记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E3%80%8A%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%9B%B8%E5%85%B3%E7%B1%BB%E5%9E%8B%E8%AF%BB%E4%B9%A6%E6%80%BB%E7%BB%93/">
+                     
+										    《设计模式》相关类型读书总结
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E3%80%8A%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%A6%85%E3%80%8B%E8%AF%BB%E4%B9%A6%E5%B0%8F%E7%BB%93/">
+                     
+										    《设计模式之禅》读书小结
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										软件工程
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/Git%20%E4%BD%BF%E7%94%A8%E5%BF%83%E5%BE%97/">
+                     
+										    Git 使用心得
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/Github%E4%B8%8A%E5%86%99Blog/">
+                     
+										    Github 上写 Blog
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/Gitlab%E5%AE%89%E8%A3%85%E6%96%87%E6%A1%A3/">
+                     
+										    Gitlab安装文档
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/%E3%80%8A%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E4%B9%8B%E9%81%93%20Java%20%E7%89%88%E3%80%8B%E7%9A%84%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
+                     
+										    《单元测试之道 Java 版》的读书笔记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/%E3%80%8A%E6%B5%8B%E8%AF%95%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91%E3%80%8B%E7%9A%84%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
+                     
+										    《测试驱动开发》的读书笔记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/%E3%80%8A%E9%87%8D%E6%9E%84%E3%80%8B%E7%9A%84%E6%96%B9%E6%B3%95%E5%88%97%E8%A1%A8/">
+                     
+										    《重构》的方法列表
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/%E3%80%8A%E9%87%8D%E6%9E%84%E3%80%8B%E7%9A%84%E8%AF%BB%E4%B9%A6%E6%84%9F%E6%83%B3/">
+                     
+										    《重构》的读书感想
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/%E3%80%8A%E9%87%8D%E6%9E%84%E3%80%8B%E7%9A%84%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
+                     
+										    《重构》的读书笔记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/%E3%80%8A%E9%87%8D%E6%9E%84%E3%80%8B%E7%9A%84%E9%87%8D%E7%82%B9%E5%88%97%E8%A1%A8/">
+                     
+										    《重构》的重点列表
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/%E3%80%8A%E9%87%8D%E6%9E%84%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%9A%84%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
+                     
+										    《重构与模式》的读书笔记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/%E4%B8%BB%E8%A6%81%20GitHub%20%E9%A1%B9%E7%9B%AE%E5%88%97%E8%A1%A8/">
+                     
+										    主要 GitHub 项目列表
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/%E5%B7%A5%E5%85%B7%E7%9A%84%E6%84%8F%E4%B9%89/">
+                     
+										    工具的意义
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/%E9%87%8D%E6%9E%84%E7%9A%84%E6%84%8F%E4%B9%89/">
+                     
+										    重构的意义
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										软件开发
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91/CUDA%E5%85%B3%E9%94%AE%E7%82%B9%E6%80%BB%E7%BB%93/">
+                     
+										    CUDA关键点总结
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91/Conda%E5%AD%A6%E4%B9%A0%E5%85%B3%E9%94%AE%E7%82%B9%E6%80%BB%E7%BB%93/">
+                     
+										    Conda学习关键点总结
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91/Jupyter%20%E5%AD%A6%E4%B9%A0%E5%85%B3%E9%94%AE%E7%82%B9%E6%80%BB%E7%BB%93/">
+                     
+										    Jupyter 学习关键点总结
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91/MySQL%E5%AD%A6%E4%B9%A0%E5%85%B3%E9%94%AE%E7%82%B9%E6%80%BB%E7%BB%93/">
+                     
+										    MySQL学习关键点总结
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91/Navicat%E5%AD%A6%E4%B9%A0%E5%85%B3%E9%94%AE%E7%82%B9%E6%80%BB%E7%BB%93/">
+                     
+										    Navicat学习关键点总结
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91/Numpy%20%E5%AD%A6%E4%B9%A0%E5%85%B3%E9%94%AE%E7%82%B9%E6%80%BB%E7%BB%93/">
+                     
+										    Numpy 学习关键点总结
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91/PyCharm%E5%AD%A6%E4%B9%A0%E5%85%B3%E9%94%AE%E7%82%B9%E6%80%BB%E7%BB%93/">
+                     
+										    PyCharm学习关键点总结
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91/VSCode%E5%AD%A6%E4%B9%A0%E5%85%B3%E9%94%AE%E7%82%B9%E6%80%BB%E7%BB%93/">
+                     
+										    VSCode学习关键点总结
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91/VSCode%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91/">
+                     
+										    VSCode插件开发
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										ide
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91/ide/Eclipse%20%E5%AD%A6%E4%B9%A0%E6%97%A5%E5%BF%97/">
+                     
+										    Eclipse 学习日志
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										java
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91/java/HelloHibernate%20%E7%9A%84%E5%88%9B%E5%BB%BA%E8%BF%87%E7%A8%8B/">
+                     
+										    HelloHibernate 的创建过程
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91/java/Maven%20%E5%AD%A6%E4%B9%A0%E6%97%A5%E5%BF%97/">
+                     
+										    Maven 学习日志
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										javascript
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91/javascript/%E4%B8%80%E6%AC%BENode%E5%A4%9A%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7%EF%BC%88NVS%EF%BC%89/">
+                     
+										    一款Node多版本管理工具（NVS）
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										markdown
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91/markdown/Latex%20%E5%AD%A6%E4%B9%A0%E6%97%A5%E5%BF%97/">
+                     
+										    Latex 学习日志
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91/markdown/Markdown%20%E5%AD%A6%E4%B9%A0%E6%97%A5%E5%BF%97/">
+                     
+										     Markdown 学习日志
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91/markdown/MathJax%E5%AD%A6%E4%B9%A0%E6%97%A5%E5%BF%97/">
+                     
+										    为 minimal-mistakes-jekyll 加入 MathJax 的支持
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91/markdown/Obsidian%E5%B8%B8%E7%94%A8%E6%8F%92%E4%BB%B6%E6%8E%A8%E8%8D%90%E4%BB%A5%E5%8F%8A%E4%B8%8B%E8%BD%BD%E9%93%BE%E6%8E%A5/">
+                     
+										    Obsidian常用插件推荐以及下载链接
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91/markdown/Pandoc%20%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+                     
+										    Pandoc 学习笔记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91/markdown/hexo%E5%8F%B2%E4%B8%8A%E6%9C%80%E5%85%A8%E6%90%AD%E5%BB%BA%E6%95%99%E7%A8%8B/">
+                     
+										    hexo史上最全搭建教程
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91/markdown/%E7%AC%94%E8%AE%B0%E8%BD%AF%E4%BB%B6%E9%80%89%E6%8B%A9/">
+                     
+										    笔记软件选择
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										python
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91/python/Python%20%E5%AD%A6%E4%B9%A0%E5%85%B3%E9%94%AE%E7%82%B9%E6%80%BB%E7%BB%93/">
+                     
+										    Python 学习关键点总结
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91/python/%E3%80%8APython%20Cookbook%E3%80%8B%E7%9A%84%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
+                     
+										    《Python Cookbook》的读书笔记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91/python/%E3%80%8APython%20%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B%E6%8C%87%E5%8D%97%E3%80%8B%E7%9A%84%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
+                     
+										    《Python 面向对象编程指南》的读书笔记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91/python/%E8%87%AA%E5%AD%A6Python%E8%AF%BB%E8%BF%87%E7%9A%84%E4%B9%A6%E6%80%BB%E7%BB%93/">
+                     
+										    自学 Python 读过的书总结
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91/%E3%80%8A%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91%E4%B8%8E%E5%88%9B%E6%96%B0%E3%80%8B%E7%9A%84%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
+                     
+										    《软件开发与创新》的读书笔记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+		</div>
+	</div>
+</div>
+
+	<!-- 引入正文 -->
+	<div id="content" class="content">
+		<h1 id="article-title">
+	《Python 数据科学实践指南》读书笔记
+</h1>
+
+<!-- meta -->
+<div class="article-meta">
+	
+
+	<span>ZhuYuanxiang</span>
+	<span>2019-03-04 00:00:00</span>
+
+  <div id="article-categories">
+    
+		  <span>Categories：</span>
+      
+          
+              <span>
+                  <i class="fa fa-folder" aria-hidden="true">
+                  <a href="/categories/编程/">编程</a>
+                  </i>
+                
+              </span>
+          
+      
+    
+
+    
+		    <span>Tags：</span>
+        
+            
+                <span>
+                    <i class="fa fa-tag" aria-hidden="true">
+                    <a href="/tags/编程/">编程</a>
+                    </i>
+                </span>
+            
+        
+            
+                <span>
+                    <i class="fa fa-tag" aria-hidden="true">
+                    <a href="/tags/Python/">Python</a>
+                    </i>
+                </span>
+            
+        
+            
+                <span>
+                    <i class="fa fa-tag" aria-hidden="true">
+                    <a href="/tags/数据科学/">数据科学</a>
+                    </i>
+                </span>
+            
+        
+    
+  </div>
+
+</div>
+
+<!-- content -->
+<div id="article-content">
+	<h1 id="全书总评"><a href="#全书总评" class="headerlink" title="全书总评"></a>全书总评</h1><ul>
+<li>书本印刷质量 : 4 星。印刷清楚，排版合适，错误很少。</li>
+<li>著作编写质量 : 3 星。Python 入门和与数据处理相关的各种模块的入门，以及数据处理的入门。作者是原著，写的确实是自己的东西，不是东抄西抄。只是实践部分的内容实在太浅薄了些。</li>
+<li>代码质量 : 4 星。Python 入门这本书的 IT 功底不够，中间可能会碰到一些坑，最好有点 Python 基础以后，用这本书查遗补缺。<a target="_blank" rel="noopener" href="https://github.com/magigo/data_science_tool_book_code">下载地址</a></li>
+<li>阅读笔记 : 记录需要记住的重点，方便快速回忆。</li>
+</ul>
+<h1 id="C01-Python-介绍"><a href="#C01-Python-介绍" class="headerlink" title="C01.Python 介绍"></a>C01.Python 介绍</h1><h2 id="Python-版本"><a href="#Python-版本" class="headerlink" title="Python 版本"></a>Python 版本</h2><ul>
+<li>Python 2.x : 2001 年发布，有许多资料和库基于这个版本编写；</li>
+<li>Python 3.x : 2009 年发布，与旧版本不兼容；</li>
+</ul>
+<h2 id="Python-解释器"><a href="#Python-解释器" class="headerlink" title="Python 解释器"></a>Python 解释器</h2><ul>
+<li>Python 是开源的，因此它的解释器有许多种实现，主流的是 <a target="_blank" rel="noopener" href="https://www.python.org/">官方的解释器</a>；</li>
+</ul>
+<h2 id="Python-之禅"><a href="#Python-之禅" class="headerlink" title="Python 之禅"></a>Python 之禅</h2><ul>
+<li>import this</li>
+</ul>
+<h1 id="C02-Python-基础知识"><a href="#C02-Python-基础知识" class="headerlink" title="C02.Python 基础知识"></a>C02.Python 基础知识</h1><h2 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h2><ul>
+<li>基础数据类型 : 在 Python 中，所有的元素都是“对象”。<ul>
+<li>None : 表示什么都没有的类型；</li>
+<li>int : 表示整数的类型；</li>
+<li>float : 表示浮点数的类型；</li>
+<li>bool : 表示布尔数值的类型；</li>
+<li>str : 表示字符串的类型；</li>
+</ul>
+</li>
+<li>变量与赋值 : Python 的书写规范 ( PEP8 )<ul>
+<li>序列解包</li>
+</ul>
+</li>
+<li>操作符与表达式 :<ul>
+<li>算术操作符 :</li>
+<li>位操作符 :</li>
+<li>比较操作符 :</li>
+<li>逻辑操作符 : and，or，not</li>
+</ul>
+</li>
+<li>文本编辑器 :<ul>
+<li>文件编码 : UTF-8</li>
+</ul>
+</li>
+</ul>
+<h2 id="流程控制"><a href="#流程控制" class="headerlink" title="流程控制"></a>流程控制</h2><ul>
+<li>条件判断 ( if…elif…else… ) :</li>
+<li>循环 :<ul>
+<li>while :</li>
+<li>for…in… :</li>
+</ul>
+</li>
+<li>缩进，空白与注释<ul>
+<li>缩进 : 分割代码块；</li>
+<li>空白 : 没有任何意义，只为美观；</li>
+<li>注释 :<ul>
+<li>单行注释 : “#”</li>
+<li>多行注释 : “””…”””</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="函数及异常"><a href="#函数及异常" class="headerlink" title="函数及异常"></a>函数及异常</h2><h3 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h3><ul>
+<li>函数定义 : def func_name()</li>
+<li>参数定义 :<ul>
+<li>实参 :</li>
+<li>形参 :</li>
+<li>位置参数 ( 参数绑定 ) : 根据定义和调用函数时参数的位置进行参数的赋值；</li>
+<li>关键字参数 : 非关键字参数不能定义在关键字参数后面。</li>
+<li>可变数量的参数 : def func(*args, **kwargs)<ul>
+<li>*args : 位置形参，表示任意数量的位置参数都会合并成一个元组，绑定到 args 上；</li>
+<li>**kwargs : 关键字形参，表示任意数量的关键字参数都会合并成一个元组，绑定以 kwargs 上；</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>递归 :</li>
+<li>闭包 ( closure ) : 又称词法闭包 ( Lexical Closure ) 或函数闭包 ( Function Closure ) ，是引用了自由变量的函数。这个被引用的自由变量将和这个函数一同存在，即使已经离开了创建它的环境也不例外。</li>
+</ul>
+<h3 id="异常"><a href="#异常" class="headerlink" title="异常"></a>异常</h3><ul>
+<li>异常 : ( try…except…finally… )</li>
+</ul>
+<h2 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h2><ul>
+<li>运算符 :<ul>
+<li>“+” : 字符串拼接；</li>
+<li>“*” : 字符串复制多份，然后拼接；</li>
+<li>切片 [start,stop,step] :</li>
+<li>len() : 字符串长度；</li>
+</ul>
+</li>
+</ul>
+<h3 id="获取键盘输入"><a href="#获取键盘输入" class="headerlink" title="获取键盘输入"></a>获取键盘输入</h3><ul>
+<li>input(str) :</li>
+</ul>
+<h3 id="字符串处理"><a href="#字符串处理" class="headerlink" title="字符串处理"></a>字符串处理</h3><ul>
+<li>字符集<ul>
+<li>字符 ( Character ) : 是各种文字和符号的总称；</li>
+<li>字符集 ( Character Set ) : 是多个字符的集合，字符集的各类很多，每个字符集包含的字符个数也不同。</li>
+<li>字符编码 ( Character Encoding ) : 也称字集码，是把字符集中的字符编码按指定集合中的某一个对象，以便在计算机中存储和通过通信网络传递文本。</li>
+</ul>
+</li>
+<li>ASCII 字符集和编码</li>
+<li>Unicode 字符集和 UTF-8 编码</li>
+</ul>
+<h3 id="字符串操作"><a href="#字符串操作" class="headerlink" title="字符串操作"></a>字符串操作</h3><ul>
+<li>基本操作 :<ul>
+<li>strip() : 移除字符串两侧的所有空白符；</li>
+<li>capitalize() : 使字符串的首字母大写；</li>
+<li>title() : 使字符串中每个单词的首字母大写；</li>
+<li>lower() : 使字符串的所有字母小写；</li>
+<li>upper() : 使字符串的所有字母大写；</li>
+<li>isalnum() : 字符串中包含字母或者数字时为 True；</li>
+<li>isdigit() : 字符串中只包含数字时为 True；</li>
+</ul>
+</li>
+<li>分割 :<ul>
+<li>split(delimiter) : 将字符串按指定分隔符分割；</li>
+<li>rsplit(delimiter) : 将字符串从右边开始按指定分隔符分割；</li>
+</ul>
+</li>
+<li>格式化 :<ul>
+<li>% : print(‘%s’ %name)</li>
+<li>format() : print(‘{one} and {two}’.format(one&#x3D;’1’,two&#x3D;’2’))</li>
+</ul>
+</li>
+</ul>
+<h3 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h3><ul>
+<li>转义符 : P55</li>
+<li>re 模块 :<ul>
+<li>re.compile() : 匹配模式；<ul>
+<li>match() : 匹配字符串；</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="C05-容器-Container-与集合-Collections"><a href="#C05-容器-Container-与集合-Collections" class="headerlink" title="C05. 容器 ( Container ) 与集合 ( Collections )"></a>C05. 容器 ( Container ) 与集合 ( Collections )</h1><h2 id="元组-Tuple"><a href="#元组-Tuple" class="headerlink" title="元组 ( Tuple )"></a>元组 ( Tuple )</h2><ul>
+<li>元组 : 与字符串一样，是有序的序列，不可以改变内容</li>
+<li>基本操作 : 连接、切片都与字符串保持一致；</li>
+<li>序列解包 : 也称多重赋值；</li>
+<li>支持迭代器协议，支持 for 循环</li>
+</ul>
+<h2 id="列表-List"><a href="#列表-List" class="headerlink" title="列表 ( List )"></a>列表 ( List )</h2><ul>
+<li>列表 : 也是序列类型的对象，但是可以改变列表中的内容；</li>
+<li>基本操作 : 连接、切片都与字符串保持一致；</li>
+<li>更改操作 :<ul>
+<li>pop() : 删除列表中的数据，并将删除的数据返回；</li>
+<li>insert() : 插入数据；</li>
+<li>append() : 追加数据；</li>
+<li>extend() : 拼接列表；</li>
+</ul>
+</li>
+<li>引用传递 : 所有的赋值都只是引用的传递，并没有创建新的数据；<ul>
+<li>list[:] : 浅拷贝，只拷贝第一层引用的数据；</li>
+<li>deepcopy() : 深拷贝，拷贝所有引用的数据；</li>
+</ul>
+</li>
+<li>列表解析式 : 构造列表的方式，将一个函数作用到整个列表中每个元素的方式；[x for x in range(1,3)]</li>
+</ul>
+<h2 id="字典-Dictionary"><a href="#字典-Dictionary" class="headerlink" title="字典 ( Dictionary )"></a>字典 ( Dictionary )</h2><ul>
+<li>字典在其他语言中被称为散列表，由 key:value 对通过｛｝组成的无序结构。</li>
+<li>常用的函数 :<ul>
+<li>get(key) : 通过 key 取得对应的 value；还可以通过链式调用取值；</li>
+<li>dict(list) : 构建新的字典；</li>
+<li>dict.keys() : 获取字典的 keys 迭代；</li>
+<li>dict.values() : 获取字典的 values 迭代；</li>
+<li>dict.items() : 获取字典的 key:value 对的迭代；</li>
+<li>dict.pop(key) : 取出指定关键字的值；</li>
+<li>dict.update(key) : 更新字典中对应的 key 中的 value；</li>
+</ul>
+</li>
+</ul>
+<h2 id="集合-Collections"><a href="#集合-Collections" class="headerlink" title="集合 ( Collections )"></a>集合 ( Collections )</h2><ul>
+<li>namedtuple() : 具名元组。</li>
+<li>Counter() : 累加器，可以用来做经典的 word count；</li>
+<li>defaultdict() : 为字典设定一个默认值；</li>
+<li>OrderedDict() : 使字典有序；</li>
+</ul>
+<h1 id="C06-Python-标准库"><a href="#C06-Python-标准库" class="headerlink" title="C06.Python 标准库"></a>C06.Python 标准库</h1><h2 id="数学模块-math"><a href="#数学模块-math" class="headerlink" title="数学模块 : math"></a>数学模块 : math</h2><ul>
+<li>常见常量 : 默认精度为 15 位，最多可以取得 48 位<ul>
+<li>math.pi</li>
+<li>math.e</li>
+</ul>
+</li>
+<li>无穷大与无效数字 :<ul>
+<li>math.inf : 表示“无穷大”，是 infinite 的缩写。math.inf*math.inf&#x3D;&#x3D;math.inf</li>
+<li>math.nan : 表示“无效数字”，是 Not a number 的缩写。math.inf&#x2F;math.inf&#x3D;&#x3D;math.nan</li>
+<li>int 的范围 : 在 3.5 中 int 长度理论上是无限的</li>
+<li>float 的范围 : 1e-309~1e+309</li>
+</ul>
+</li>
+<li>浮点数转换为整数 :<ul>
+<li>math.trunc(f) : 截掉浮点型小数点后面的数字；</li>
+<li>math.floor(f) : 取最接近浮点型数字的整数；</li>
+<li>math.ceil(f) : 取比当前浮点型数字大的整数；</li>
+</ul>
+</li>
+<li>绝对值和符号 :<ul>
+<li>math.fabs(f) : 浮点数的绝对值；</li>
+<li>math.copysign(x,y) : 符号函数，将 y 的符号传递给 x；</li>
+</ul>
+</li>
+<li>常用计算 :<ul>
+<li>math.fsum(values) : 解决 sum(values) 不能精确计算的问题；</li>
+<li>math.factorial(x) : 阶乘计算函数。</li>
+</ul>
+</li>
+<li>指数和对数 :<ul>
+<li>math.pow(x,y) : x 的 y 次幂；</li>
+<li>math.log(x) : x 以 e 为底的对数；</li>
+<li>math.log10(x) : x 以 10 为底的对数；</li>
+</ul>
+</li>
+</ul>
+<h2 id="时间模块-time，datetime，calendar"><a href="#时间模块-time，datetime，calendar" class="headerlink" title="时间模块 : time，datetime，calendar"></a>时间模块 : time，datetime，calendar</h2><ul>
+<li>time 模块 : 基础的时间处理模块；<ul>
+<li>time.time() : 表示为数字时间戳，即从格林威治时间 : 1970-1-1，0 : 0 : 0 ( 北京时间 : 1970-1-1，8 : 0 : 0 ) 以来所经历过的秒数；</li>
+<li>time.ctime(x) : 没有 x 则返回当前时间的字符串版本，有 x 则返回从时间戳开始经过了 x 秒后的时间的字符串。</li>
+<li>struct_time : 具名元组，可以分别获得年 (tm_year)、月 (tm_mon)、当月第几日 (tm_mday)、时 (tm_hour)、分 (tm_min)、秒 (tm_sec)，星期几 (tm_way，星期一是 0)，当年第几天 (tm_yday)，是否夏令时 (tm_isdst，没有为 0)；<ul>
+<li>time.gmtime() : 格林威治下的 struct_time；</li>
+<li>time.localtime() : 当前电脑所在时区的 struct_time；</li>
+<li>time.mktime(struct_time) : 还原成数字时间戳的方式；</li>
+<li>time.strptime(string,format) : 将字符串格式的时间按照格式转换成 struct_time 格式；</li>
+<li>time.strftime(format,struct_time) : 将 struct_time 格式的时间元组转换成字符串格式；</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>datetime 模块 : 针对年月日和时分秒分别进行处理；</li>
+<li>calendar 模块 : 处理万年历；</li>
+</ul>
+<h2 id="随机数模块-random"><a href="#随机数模块-random" class="headerlink" title="随机数模块 : random"></a>随机数模块 : random</h2><ul>
+<li>随机数生成器 :<ul>
+<li><code>random.random()</code> : 生成均匀分布的浮点随机数，在半开半闭区间 $[0.0, 1.0)$；</li>
+<li><code>random.seed()</code> : 设置随机数种子；</li>
+<li><code>random.randint(a,b)</code> : 返回整型随机数，在闭区间 $[a,b]$；</li>
+<li><code>random.randrange()</code> : 返回整型随机数，在半开半闭区间 $[a,b)$；</li>
+</ul>
+</li>
+</ul>
+<h2 id="取样"><a href="#取样" class="headerlink" title="取样"></a>取样</h2><ul>
+<li><code>random.shuffle(list)</code> : 按随机性质将列表重新排列顺序；</li>
+<li><code>random.choice(list)</code> : 按随机性质从列表中抽取数据；</li>
+<li><code>random.sample(list,k)</code> : 按随机性质从列表中抽取指定长度的数据；</li>
+</ul>
+<h2 id="文件处理-glob-和-fileinput"><a href="#文件处理-glob-和-fileinput" class="headerlink" title="文件处理 : glob 和 fileinput"></a>文件处理 : glob 和 fileinput</h2><ul>
+<li><code>open(filename,mode)</code> : 基于 mode 模式打开 filename 文件；还支持上下文管理器 with 模式；</li>
+<li>glob 模块 : 目录处理；</li>
+<li>fileinput 模块 : 批量文件读入；是一个帮助类；</li>
+</ul>
+<h2 id="压缩-bz2-和-gzip"><a href="#压缩-bz2-和-gzip" class="headerlink" title="压缩 : bz2 和 gzip"></a>压缩 : bz2 和 gzip</h2><ul>
+<li>不建议使用的压缩格式 :<ul>
+<li>rar : 专门服务于 Windows 下，Python 需要第三方库才能打开；</li>
+<li>tar : 只用于打包文件，不对文件进行压缩；</li>
+<li>zip : 既可以压缩文件，还可以打包文件，因为自带打包功能，不适合用于对文件单独压缩；</li>
+</ul>
+</li>
+<li>建议使用的压缩格式<ul>
+<li>bz2 模块 : 对单个文件可写可读，非常方便；</li>
+<li>gzip 模块 : 对单个文件可写可读，非常方便；</li>
+</ul>
+</li>
+</ul>
+<h2 id="漂亮打印-pprint-模块"><a href="#漂亮打印-pprint-模块" class="headerlink" title="漂亮打印 : pprint 模块"></a>漂亮打印 : pprint 模块</h2><h2 id="跟踪异常日志-traceback-模块"><a href="#跟踪异常日志-traceback-模块" class="headerlink" title="跟踪异常日志 : traceback 模块"></a>跟踪异常日志 : traceback 模块</h2><h2 id="网络数据传输-JSON"><a href="#网络数据传输-JSON" class="headerlink" title="网络数据传输 : JSON"></a>网络数据传输 : JSON</h2><ul>
+<li><code>json.loads()</code> : 将 JSON 转换成字典；</li>
+<li><code>json.dumps()</code> : 将字典转换成 JSON；</li>
+</ul>
+<h1 id="C07-用-Python-读写外部数据"><a href="#C07-用-Python-读写外部数据" class="headerlink" title="C07. 用 Python 读写外部数据"></a>C07. 用 Python 读写外部数据</h1><h2 id="CSV，csv-模块"><a href="#CSV，csv-模块" class="headerlink" title="CSV，csv 模块"></a>CSV，csv 模块</h2><ul>
+<li><code>csv.reader()</code> : 读取文件；</li>
+<li><code>csv.writer()</code> : 写入文件；</li>
+<li><code>csv.register_dialect()</code> : delimiter&#x3D; 注册分割符；</li>
+<li><code>csv.DictReader()</code> : 按照字典结构读取数据；*</li>
+</ul>
+<h2 id="Excel，pandas-模块-参考-C10"><a href="#Excel，pandas-模块-参考-C10" class="headerlink" title="Excel，pandas 模块 ( 参考 C10 )"></a>Excel，pandas 模块 ( 参考 C10 )</h2><ul>
+<li><code>pandas.read_excel()</code> : 读取文件；</li>
+<li><code>pandas.to_excel()</code> : 写入文件；</li>
+<li><code>pandas.set_option()</code> : 设置属性值；</li>
+<li><code>pandas.DataFrame()</code> : 表格结构；</li>
+</ul>
+<h2 id="MySQL，MySQLdb-模块，torndb-模块"><a href="#MySQL，MySQLdb-模块，torndb-模块" class="headerlink" title="MySQL，MySQLdb 模块，torndb 模块"></a>MySQL，MySQLdb 模块，torndb 模块</h2><ul>
+<li><code>db=torndb.Connection(host,database,user,password)</code> : 建立数据库链接；</li>
+<li><code>db.insert(SQL),db.insertmany(SQL)</code> : 向数据库中插入单行数据，插入多行数据；</li>
+<li><code>db.query(SQL)</code> : 从数据库读取数据；</li>
+</ul>
+<h2 id="PostgreSQL，psycopg2-模块"><a href="#PostgreSQL，psycopg2-模块" class="headerlink" title="PostgreSQL，psycopg2 模块"></a>PostgreSQL，psycopg2 模块</h2><h2 id="MongoDB，pymongo-模块"><a href="#MongoDB，pymongo-模块" class="headerlink" title="MongoDB，pymongo 模块"></a>MongoDB，pymongo 模块</h2><h2 id="ElasticSearch，elasticsearch-模块"><a href="#ElasticSearch，elasticsearch-模块" class="headerlink" title="ElasticSearch，elasticsearch 模块"></a>ElasticSearch，elasticsearch 模块</h2><h1 id="C08-用-Python-解决统计问题"><a href="#C08-用-Python-解决统计问题" class="headerlink" title="C08. 用 Python 解决统计问题"></a>C08. 用 Python 解决统计问题</h1><ul>
+<li>pandas 模块许多函数发生了改变；在 Python 3.7 下 <code>read_excel()</code> 运行有问题；统计都没办法测试了。</li>
+</ul>
+<h2 id="描述性统计"><a href="#描述性统计" class="headerlink" title="描述性统计"></a>描述性统计</h2><ul>
+<li>均值 :</li>
+<li>中位数 :</li>
+<li>方差 :</li>
+<li>标准差 :</li>
+</ul>
+<h2 id="数据可视化"><a href="#数据可视化" class="headerlink" title="数据可视化"></a>数据可视化</h2><ul>
+<li>基本函数 :<ul>
+<li><code>plot()</code></li>
+<li><code>show()</code></li>
+<li><code>figure()</code></li>
+<li><code>title()</code></li>
+<li><code>xlabel()</code></li>
+<li><code>ylabel()</code></li>
+<li><code>legend()</code></li>
+</ul>
+</li>
+<li>图形 :<ul>
+<li>折线图 :</li>
+<li>散点图 :</li>
+<li>柱状图 : <code>bar()</code></li>
+<li>饼图 : <code>pie()</code></li>
+</ul>
+</li>
+</ul>
+<h1 id="C09-爬虫入门"><a href="#C09-爬虫入门" class="headerlink" title="C09. 爬虫入门"></a>C09. 爬虫入门</h1><h2 id="request-模块"><a href="#request-模块" class="headerlink" title="request 模块"></a>request 模块</h2><ul>
+<li>HTTP 协议 :</li>
+<li>获取 HTML 内容 :</li>
+</ul>
+<h2 id="Xpath-模块"><a href="#Xpath-模块" class="headerlink" title="Xpath 模块"></a>Xpath 模块</h2><ul>
+<li>解析 HTML 内容 :</li>
+<li>这个模块已经没有匹配 Python3.7 的版本了，放弃这个学习。</li>
+</ul>
+<h1 id="C10-数据科学的第三方库"><a href="#C10-数据科学的第三方库" class="headerlink" title="C10. 数据科学的第三方库"></a>C10. 数据科学的第三方库</h1><h2 id="Numpy-模块"><a href="#Numpy-模块" class="headerlink" title="Numpy 模块"></a>Numpy 模块</h2><ul>
+<li>ndarray:<ul>
+<li>创建 :<ul>
+<li><code>arange()</code></li>
+<li><code>linspace()</code> : 度量等宽</li>
+<li><code>random.random()</code> : 随机数</li>
+</ul>
+</li>
+<li>属性 :<ul>
+<li><code>ndim</code> : 数组的维度；</li>
+<li><code>shape</code> : 数组的形状；</li>
+<li><code>dtype.name</code> : 数组中数据的类型；</li>
+<li><code>itemsize</code> : 数组类型占用的内存空间大小；</li>
+<li><code>size</code> : 数组中元素个数；</li>
+</ul>
+</li>
+<li>创建特定数组 :<ul>
+<li><code>zeros()</code> : 全零矩阵；</li>
+<li><code>ones()</code> : 全 1 矩阵；</li>
+<li><code>empty()</code> : 随机的小值组成的矩阵；</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>基本运算 : 数组运算是基于元素计算的<ul>
+<li>矩阵乘法 : <code>dot()</code></li>
+<li>迭代 : 与列表类似，直接迭代按行取数，<code>flat()</code> 可以把数组摊平为一维数组</li>
+<li>变形 : <code>resize()</code> 原地修改数组；<code>reshape()</code> 输出一个变形后的数组，原数组不变；</li>
+<li>堆叠 : <code>hstack()</code> 行数相同，水平堆叠；<code>vstack()</code> 列数相同，垂直堆叠；</li>
+</ul>
+</li>
+<li>高级运算<ul>
+<li><code>transpose()</code> : 转置；</li>
+<li><code>linalg.inv()</code> : 取逆；</li>
+<li><code>eye()</code> : 单位阵；</li>
+<li><code>trace()</code> : 取迹；</li>
+<li><code>linalg.solve()</code> : 解线性方程；</li>
+<li><code>linalg.eig()</code> : 解特征方程；</li>
+</ul>
+</li>
+</ul>
+<h1 id="从这里开始，先弃了，这本书适合了解了以后，再来根据作者的实践角度查遗补缺"><a href="#从这里开始，先弃了，这本书适合了解了以后，再来根据作者的实践角度查遗补缺" class="headerlink" title="从这里开始，先弃了，这本书适合了解了以后，再来根据作者的实践角度查遗补缺"></a>从这里开始，先弃了，这本书适合了解了以后，再来根据作者的实践角度查遗补缺</h1><h2 id="Pandas-模块"><a href="#Pandas-模块" class="headerlink" title="Pandas 模块"></a>Pandas 模块</h2><p>有时候 DataFrame 中的行列数量太多，print 打印出来会显示不完全。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 显示所有列</span></span><br><span class="line">pd.set_option(<span class="string">&#x27;display.max_columns&#x27;</span>, <span class="literal">None</span>)</span><br><span class="line"><span class="comment"># 显示所有行</span></span><br><span class="line">pd.set_option(<span class="string">&#x27;display.max_rows&#x27;</span>, <span class="literal">None</span>)</span><br><span class="line"><span class="comment"># 设置 value 的显示长度为 100，默认为 50</span></span><br><span class="line">pd.set_option(<span class="string">&#x27;max_colwidth&#x27;</span>,<span class="number">100</span>)</span><br></pre></td></tr></table></figure>
+
+<p><code>set_option()</code> 的所有属性 :<br>Available options:</p>
+<ul>
+<li>display.[chop_threshold, colheader_justify, column_space, date_dayfirst,<br>date_yearfirst, encoding, expand_frame_repr, float_format, height, large_repr]</li>
+<li>display.latex.[escape, longtable, repr]</li>
+<li>display.[line_width, max_categories, max_columns, max_colwidth,<br>max_info_columns, max_info_rows, max_rows, max_seq_items, memory_usage,<br>mpl_style, multi_sparse, notebook_repr_html, pprint_nest_depth, precision,<br>show_dimensions]</li>
+<li>display.unicode.[ambiguous_as_wide, east_asian_width]</li>
+<li>display.[width]</li>
+<li>io.excel.xls.[writer]</li>
+<li>io.excel.xlsm.[writer]</li>
+<li>io.excel.xlsx.[writer]</li>
+<li>io.hdf.[default_format, dropna_table]</li>
+<li>mode.[chained_assignment, sim_interactive, use_inf_as_null]</li>
+</ul>
+<h2 id="Parameters"><a href="#Parameters" class="headerlink" title="Parameters"></a>Parameters</h2><p>pat : str<br>    Regexp which should match a single option.<br>    Note: partial matches are supported for convenience, but unless you use the<br>    full option name (e.g. x.y.z.option_name), your code may break in future<br>    versions if new options with similar names are introduced.<br>value :<br>    new value of option.</p>
+<h2 id="Returns"><a href="#Returns" class="headerlink" title="Returns"></a>Returns</h2><p>None</p>
+<h2 id="Raises"><a href="#Raises" class="headerlink" title="Raises"></a>Raises</h2><p>OptionError if no such option exists</p>
+<h2 id="Notes"><a href="#Notes" class="headerlink" title="Notes"></a>Notes</h2><p>The available options with its descriptions:</p>
+<p>display.chop_threshold : float or None<br>    if set to a float value, all float values smaller then the given threshold<br>    will be displayed as exactly 0 by repr and friends.<br>    [default: None] [currently: None]</p>
+<p>display.colheader_justify : ‘left’&#x2F;‘right’<br>    Controls the justification of column headers. used by DataFrameFormatter.<br>    [default: right] [currently: right]</p>
+<p>display.column_space No description available.<br>    [default: 12] [currently: 12]</p>
+<p>display.date_dayfirst : boolean<br>    When True, prints and parses dates with the day first, eg 20&#x2F;01&#x2F;2005<br>    [default: False] [currently: False]</p>
+<p>display.date_yearfirst : boolean<br>    When True, prints and parses dates with the year first, eg 2005&#x2F;01&#x2F;20<br>    [default: False] [currently: False]</p>
+<p>display.encoding : str&#x2F;unicode<br>    Defaults to the detected encoding of the console.<br>    Specifies the encoding to be used for strings returned by to_string,<br>    these are generally strings meant to be displayed on the console.<br>    [default: UTF-8] [currently: UTF-8]</p>
+<p>display.expand_frame_repr : boolean<br>    Whether to print out the full DataFrame repr for wide DataFrames across<br>    multiple lines, <code>max_columns</code> is still respected, but the output will<br>    wrap-around across multiple “pages” if its width exceeds <code>display.width</code>.<br>    [default: True] [currently: True]</p>
+<p>display.float_format : callable<br>    The callable should accept a floating point number and return<br>    a string with the desired format of the number. This is used<br>    in some places like SeriesFormatter.<br>    See formats.format.EngFormatter for an example.<br>    [default: None] [currently: None]</p>
+<p>display.height : int<br>    Deprecated.<br>    [default: 60] [currently: 60]<br>    (Deprecated, use <code>display.max_rows</code> instead.)</p>
+<p>display.large_repr : ‘truncate’&#x2F;‘info’<br>    For DataFrames exceeding max_rows&#x2F;max_cols, the repr (and HTML repr) can<br>    show a truncated table (the default from 0.13), or switch to the view from<br>    df.info() (the behaviour in earlier versions of pandas).<br>    [default: truncate] [currently: truncate]</p>
+<p>display.latex.escape : bool<br>    This specifies if the to_latex method of a Dataframe uses escapes special<br>    characters.<br>    method. Valid values: False,True<br>    [default: True] [currently: True]</p>
+<p>display.latex.longtable :bool<br>    This specifies if the to_latex method of a Dataframe uses the longtable<br>    format.<br>    method. Valid values: False,True<br>    [default: False] [currently: False]</p>
+<p>display.latex.repr : boolean<br>    Whether to produce a latex DataFrame representation for jupyter<br>    environments that support it.<br>    (default: False)<br>    [default: False] [currently: False]</p>
+<p>display.line_width : int<br>    Deprecated.<br>    [default: 80] [currently: 80]<br>    (Deprecated, use <code>display.width</code> instead.)</p>
+<p>display.max_categories : int<br>    This sets the maximum number of categories pandas should output when<br>    printing out a <code>Categorical</code> or a Series of dtype “category”.<br>    [default: 8] [currently: 8]</p>
+<p>display.max_columns : int<br>    If max_cols is exceeded, switch to truncate view. Depending on<br>    <code>large_repr</code>, objects are either centrally truncated or printed as<br>    a summary view. ‘None’ value means unlimited.</p>
+<pre><code>In case python/IPython is running in a terminal and `large_repr`
+equals &#39;truncate&#39; this can be set to 0 and pandas will auto-detect
+the width of the terminal and print a truncated object which fits
+the screen width. The IPython notebook, IPython qtconsole, or IDLE
+do not run in a terminal and hence it is not possible to do
+correct auto-detection.
+[default: 20] [currently: 20]
+</code></pre>
+<p>display.max_colwidth : int<br>    The maximum width in characters of a column in the repr of<br>    a pandas data structure. When the column overflows, a “…”<br>    placeholder is embedded in the output.<br>    [default: 50] [currently: 200]</p>
+<p>display.max_info_columns : int<br>    max_info_columns is used in DataFrame.info method to decide if<br>    per column information will be printed.<br>    [default: 100] [currently: 100]</p>
+<p>display.max_info_rows : int or None<br>    df.info() will usually show null-counts for each column.<br>    For large frames this can be quite slow. max_info_rows and max_info_cols<br>    limit this null check only to frames with smaller dimensions than<br>    specified.<br>    [default: 1690785] [currently: 1690785]</p>
+<p>display.max_rows : int<br>    If max_rows is exceeded, switch to truncate view. Depending on<br>    <code>large_repr</code>, objects are either centrally truncated or printed as<br>    a summary view. ‘None’ value means unlimited.</p>
+<pre><code>In case python/IPython is running in a terminal and `large_repr`
+equals &#39;truncate&#39; this can be set to 0 and pandas will auto-detect
+the height of the terminal and print a truncated object which fits
+the screen height. The IPython notebook, IPython qtconsole, or
+IDLE do not run in a terminal and hence it is not possible to do
+correct auto-detection.
+[default: 60] [currently: 60]
+</code></pre>
+<p>display.max_seq_items : int or None<br>    when pretty-printing a long sequence, no more then <code>max_seq_items</code><br>    will be printed. If items are omitted, they will be denoted by the<br>    addition of “…” to the resulting string.</p>
+<pre><code>If set to None, the number of items to be printed is unlimited.
+[default: 100] [currently: 100]
+</code></pre>
+<p>display.memory_usage : bool, string or None<br>    This specifies if the memory usage of a DataFrame should be displayed when<br>    df.info() is called. Valid values True,False,’deep’<br>    [default: True] [currently: True]</p>
+<p>display.mpl_style : bool<br>    Setting this to ‘default’ will modify the rcParams used by matplotlib<br>    to give plots a more pleasing visual style by default.<br>    Setting this to None&#x2F;False restores the values to their initial value.<br>    [default: None] [currently: None]</p>
+<p>display.multi_sparse : boolean<br>    “sparsify” MultiIndex display (don’t display repeated<br>    elements in outer levels within groups)<br>    [default: True] [currently: True]</p>
+<p>display.notebook_repr_html : boolean<br>    When True, IPython notebook will use html representation for<br>    pandas objects (if it is available).<br>    [default: True] [currently: True]</p>
+<p>display.pprint_nest_depth : int<br>    Controls the number of nested levels to process when pretty-printing<br>    [default: 3] [currently: 3]</p>
+<p>display.precision : int<br>    Floating point output precision (number of significant digits). This is<br>    only a suggestion<br>    [default: 6] [currently: 6]</p>
+<p>display.show_dimensions : boolean or ‘truncate’<br>    Whether to print out dimensions at the end of DataFrame repr.<br>    If ‘truncate’ is specified, only print out the dimensions if the<br>    frame is truncated (e.g. not display all rows and&#x2F;or columns)<br>    [default: truncate] [currently: truncate]</p>
+<p>display.unicode.ambiguous_as_wide : boolean<br>    Whether to use the Unicode East Asian Width to calculate the display text<br>    width.<br>    Enabling this may affect to the performance (default: False)<br>    [default: False] [currently: False]</p>
+<p>display.unicode.east_asian_width : boolean<br>    Whether to use the Unicode East Asian Width to calculate the display text<br>    width.<br>    Enabling this may affect to the performance (default: False)<br>    [default: False] [currently: False]</p>
+<p>display.width : int<br>    Width of the display in characters. In case python&#x2F;IPython is running in<br>    a terminal this can be set to None and pandas will correctly auto-detect<br>    the width.<br>    Note that the IPython notebook, IPython qtconsole, or IDLE do not run in a<br>    terminal and hence it is not possible to correctly detect the width.<br>    [default: 80] [currently: 80]</p>
+<p>io.excel.xls.writer : string<br>    The default Excel writer engine for ‘xls’ files. Available options:<br>    ‘xlwt’ (the default).<br>    [default: xlwt] [currently: xlwt]</p>
+<p>io.excel.xlsm.writer : string<br>    The default Excel writer engine for ‘xlsm’ files. Available options:<br>    ‘openpyxl’ (the default).<br>    [default: openpyxl] [currently: openpyxl]</p>
+<p>io.excel.xlsx.writer : string<br>    The default Excel writer engine for ‘xlsx’ files. Available options:<br>    ‘xlsxwriter’ (the default), ‘openpyxl’.<br>    [default: xlsxwriter] [currently: xlsxwriter]</p>
+<p>io.hdf.default_format : format<br>    default format writing format, if None, then<br>    put will default to ‘fixed’ and append will default to ‘table’<br>    [default: None] [currently: None]</p>
+<p>io.hdf.dropna_table : boolean<br>    drop ALL nan rows when appending to a table<br>    [default: False] [currently: False]</p>
+<p>mode.chained_assignment : string<br>    Raise an exception, warn, or no action if trying to use chained assignment,<br>    The default is warn<br>    [default: warn] [currently: warn]</p>
+<p>mode.sim_interactive : boolean<br>    Whether to simulate interactive mode for purposes of testing<br>    [default: False] [currently: False]</p>
+<p>mode.use_inf_as_null : boolean<br>    True means treat None, NaN, INF, -INF as null (old way),<br>    False means None and NaN are null, but INF, -INF are not null<br>    (new way).<br>    [default: False] [currently: False]</p>
+<h2 id="Scikit-Learn-模块"><a href="#Scikit-Learn-模块" class="headerlink" title="Scikit-Learn 模块"></a>Scikit-Learn 模块</h2><h2 id="C11-图数据分析"><a href="#C11-图数据分析" class="headerlink" title="C11. 图数据分析"></a>C11. 图数据分析</h2><h2 id="图论基础"><a href="#图论基础" class="headerlink" title="图论基础"></a>图论基础</h2><h2 id="NetworkX-模块"><a href="#NetworkX-模块" class="headerlink" title="NetworkX 模块"></a>NetworkX 模块</h2><h2 id="利用-NetworkX-进行图分析"><a href="#利用-NetworkX-进行图分析" class="headerlink" title="利用 NetworkX 进行图分析"></a>利用 NetworkX 进行图分析</h2><h1 id="C12-大数据工具"><a href="#C12-大数据工具" class="headerlink" title="C12. 大数据工具"></a>C12. 大数据工具</h1><h2 id="Hadoop"><a href="#Hadoop" class="headerlink" title="Hadoop"></a>Hadoop</h2><h2 id="Spark"><a href="#Spark" class="headerlink" title="Spark"></a>Spark</h2>
+</div>
+
+<!-- post-guide -->
+
+    <div class="post-guide">
+        <div class="item left">
+            
+              <a href="/bookmarks/%E7%BD%91%E7%AB%99%E5%88%97%E8%A1%A8/">
+                  <i class="fa fa-angle-left" aria-hidden="true"></i>
+                  重要网站
+              </a>
+            
+        </div>
+        <div class="item right">
+            
+              <a href="/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91/python/%E3%80%8APython%20Cookbook%E3%80%8B%E7%9A%84%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
+                《Python Cookbook》的读书笔记
+                <i class="fa fa-angle-right" aria-hidden="true"></i>
+              </a>
+            
+        </div>
+    </div>
+
+
+<!-- comment - giscus -->
+
+
+<!-- comment - valine -->
+
+
+<script>
+	
+	
+</script>
+	</div>
+	<div id="footer">
+	<p>
+	©<span id="footerYear-start"></span>-<span id="footerYear-end"></span>
+
+	
+	    <a href="/">ZhuYuanxiang</a>
+	
+	
+	
+		|
+		<span id="busuanzi_container_site_pv">
+			pv
+			<span id="busuanzi_value_site_pv"></span>
+		</span>
+		|
+		<span id="busuanzi_container_site_uv"> 
+			uv
+			<span id="busuanzi_value_site_uv"></span>
+		</span>
+	
+	<br>
+	Theme <a href="//github.com/wujun234/hexo-theme-tree" target="_blank">Tree</a>
+	by <a href="//wujun.me" target="_blank">Wu Jun</a>
+	Powered by <a href="//hexo.io" target="_blank">Hexo</a>
+	</p>
+</div>
+
+
+<script type="text/javascript">
+	document.getElementById('footerYear-start').innerHTML = new Date().getFullYear() + '';
+</script>
+
+<script type="text/javascript">
+	document.getElementById('footerYear-end').innerHTML = new Date().getFullYear() + '';
+</script>
+
+	<button id="totop-toggle" class="toggle"><i class="fa fa-angle-double-up" aria-hidden="true"></i></button>
+</body>
+</html>
