@@ -1,0 +1,5187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8">
+	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+	
+	<!-- title -->
+	
+	<title>
+	
+		XMem_Long-Term_Video_Object_Segmentation_with_an_Atkinson-Shiffrin_Memory_Model | 
+	 
+	zYx.Tom的个人博客
+	</title>
+	
+	<!-- keywords,description -->
+	
+		<meta name="keywords" content="工作笔记, 图像处理, 图形处理, Python, PyTorch, Ubuntu, Git, 开发工具, AI, 人工智能, 神经网络" />
+	
+	
+		<meta name="description" content="湖南大学92级本科，浙江大学99级硕士，电子科技大学09级博士。具备2D图像、3D图形方面的AI研究和产品落地能力。" />
+	
+
+	<!-- favicon -->
+	
+	<link rel="shortcut icon" href="/images/avatar.png">
+	
+
+
+	<!-- search -->
+	<script>
+		var searchEngine = "https://www.baidu.com/s?wd=";
+		if(typeof searchEngine == "undefined" || searchEngine == null || searchEngine == ""){
+			searchEngine = "https://www.google.com/search?q=";
+		}
+		var homeHost = "zhuyuanxiang.github.io";
+		if(typeof homeHost == "undefined" || homeHost == null || homeHost == ""){
+			homeHost = window.location.host;
+		}
+	</script>
+
+
+	
+<link rel="stylesheet" href="/css/main.css">
+
+	
+<link rel="stylesheet" href="https://cdn.staticfile.org/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.17.1/build/styles/darcula.min.css">
+
+	
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+
+
+	
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.0/dist/jquery.min.js"></script>
+
+	
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+	
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.17.1/build/highlight.min.js"></script>
+
+	
+<script src="https://cdn.jsdelivr.net/npm/jquery-pjax@2.0.1/jquery.pjax.min.js"></script>
+
+	
+<script src="/js/main.js"></script>
+
+
+	
+		
+<script src="https://cdn.jsdelivr.net/npm/leancloud-storage/dist/av-min.js"></script>
+
+		
+<script src="https://cdn.jsdelivr.net/npm/valine@v1.5.1/dist/Valine.min.js"></script>
+
+	
+	
+		<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+	
+
+<!-- hexo injector head_end start -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css">
+<!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+	<header id="header">
+    <a id="title" href="/" class="logo">zYx.Tom的个人博客</a>
+
+	<ul id="menu">
+    
+      <li class="menu-item">
+        <a href="/about" class="menu-item-link">About</a>
+      </li>
+    
+
+    
+      <li class="menu-item">
+        <a href="/tags" class="menu-item-link">Tags</a>
+      </li>
+    
+
+    
+      <li class="menu-item">
+        <a href="/categories" class="menu-item-link">Categories</a>
+      </li>
+    
+
+    
+      
+      
+        <li class="menu-item">
+          <a href='https://weibo.com/ygpfr' class="menu-item-link" target="_blank">
+            Weibo
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a href='https://www.douban.com/people/zhuyuanxiang/' class="menu-item-link" target="_blank">
+            Douban
+          </a>
+        </li>
+      
+        <li class="menu-item">
+          <a href='mailto:zhuyuanxiang@gmail.com' class="menu-item-link" target="_blank">
+            E-Mail
+          </a>
+        </li>
+      
+    
+  
+    
+      <li class="menu-item">
+        <a href='https://github.com/zhuyuanxiang' class="menu-item-link" target="_blank">
+          <i class="fa fa-github fa-2x"></i>
+        </a>
+      </li>
+    
+	</ul>
+</header>
+
+	
+<div id="sidebar">
+	<button id="sidebar-toggle" class="toggle" ><i class="fa fa-arrow-right " aria-hidden="true"></i></button>
+	
+	<div id="site-toc">
+		<input id="search-input" class="search-input" type="search" placeholder="Press Enter to search">
+		<div id="tree">
+			
+
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										bookmarks
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/bookmarks/%E5%9B%BE%E4%B9%A6%E5%88%97%E8%A1%A8/">
+                     
+										    图书列表
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/bookmarks/%E7%BD%91%E7%AB%99%E5%88%97%E8%A1%A8/">
+                     
+										    网站列表
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										医学健康
+									</a>
+									
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										ChineseMedician
+									</a>
+									
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										Acupoint
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E5%8C%BB%E5%AD%A6%E5%81%A5%E5%BA%B7/ChineseMedician/Acupoint/%E5%8E%9F%E6%96%87%E5%9C%B0%E5%9D%80%EF%BC%9A%E8%BF%91%E8%A7%86%E5%85%8B%E6%98%9F--%E2%80%94%E5%85%89%E6%98%8E%E7%A9%B4%E4%BD%9C%E8%80%85%EF%BC%9A%E8%8D%AF%E8%91%AB%E8%8A%A6%E4%B8%93%E6%B2%BB%E8%82%A9%E5%91%A8%E7%82%8E/">
+                     
+										    原文地址：近视克星--—光明穴作者：药葫芦专治肩周炎
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E5%8C%BB%E5%AD%A6%E5%81%A5%E5%BA%B7/%E4%B8%AD%E5%8C%BB%E5%85%BB%E7%94%9F%E6%88%90%E6%96%B9/">
+                     
+										    中医养生成方
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										基础理论
+									</a>
+									
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										学习笔记
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E5%9F%BA%E4%BA%8E%E4%B8%B4%E7%95%8C%E5%A4%9A%E8%BE%B9%E5%BD%A2%E7%9A%84%E4%BA%8C%E7%BB%B4%E4%B8%8D%E8%A7%84%E5%88%99%E6%8E%92%E6%A0%B7%E7%AE%97%E6%B3%95%E7%A0%94%E7%A9%B6/">
+                     
+										    基于临界多边形的二维不规则排样算法研究
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E6%8E%92%E6%96%99%E9%97%AE%E9%A2%98/">
+                     
+										    排料问题
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/%E7%9F%B3%E6%9D%90%E4%BC%98%E5%8C%96%E6%8E%92%E6%A0%B7%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E7%8E%B0%E2%80%94%E2%80%94%E8%A2%81%E5%93%B2/">
+                     
+										    石材优化排样技术与实现——袁哲
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										技术要点
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/%E6%8A%80%E6%9C%AF%E8%A6%81%E7%82%B9/HDF5/">
+                     
+										    HDF5
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										数学
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/%E6%95%B0%E5%AD%A6/%E6%95%B0%E5%AD%A6%E8%A7%A3%E7%9A%84%E5%88%86%E7%B1%BB/">
+                     
+										    数学解的分类
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										牙科知识
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/%E7%89%99%E7%A7%91%E7%9F%A5%E8%AF%86/%E5%85%A8%E5%8F%A3%E4%B9%89%E9%BD%BF/">
+                     
+										    全口义齿
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/%E7%89%99%E7%A7%91%E7%9F%A5%E8%AF%86/%E5%90%8D%E8%AF%8D%E8%A7%A3%E9%87%8A/">
+                     
+										    名词解释
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/%E7%89%99%E7%A7%91%E7%9F%A5%E8%AF%86/%E7%89%99%E7%A7%91%E4%B8%93%E6%9C%89%E7%9F%A5%E8%AF%86/">
+                     
+										    牙科专有知识
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										工作日志
+									</a>
+									
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										2020
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E5%B7%A5%E4%BD%9C%E6%97%A5%E5%BF%97/2020/2020%E5%B9%B404%E6%9C%88%E6%97%A5%E8%AE%B0/">
+                     
+										    2020年04月日记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E5%B7%A5%E4%BD%9C%E6%97%A5%E5%BF%97/2020/2020%E5%B9%B405%E6%9C%88%E6%97%A5%E8%AE%B0/">
+                     
+										    2020年05月日记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E5%B7%A5%E4%BD%9C%E6%97%A5%E5%BF%97/2020/2020%E5%B9%B406%E6%9C%88%E6%97%A5%E8%AE%B0/">
+                     
+										    2020年06月日记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E5%B7%A5%E4%BD%9C%E6%97%A5%E5%BF%97/2020/2020%E5%B9%B407%E6%9C%88%E6%97%A5%E8%AE%B0/">
+                     
+										    2020年07月日记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E5%B7%A5%E4%BD%9C%E6%97%A5%E5%BF%97/2020/2020%E5%B9%B408%E6%9C%88%E6%97%A5%E8%AE%B0/">
+                     
+										    2020年08月日记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E5%B7%A5%E4%BD%9C%E6%97%A5%E5%BF%97/2020/2020%E5%B9%B409%E6%9C%88%E6%97%A5%E8%AE%B0/">
+                     
+										    2020年09月日记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E5%B7%A5%E4%BD%9C%E6%97%A5%E5%BF%97/2020/2020%E5%B9%B410%E6%9C%88%E6%97%A5%E8%AE%B0/">
+                     
+										    2020年10月日记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E5%B7%A5%E4%BD%9C%E6%97%A5%E5%BF%97/2020/2020%E5%B9%B411%E6%9C%88%E6%97%A5%E8%AE%B0/">
+                     
+										    2020年11月日记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E5%B7%A5%E4%BD%9C%E6%97%A5%E5%BF%97/2020/2020%E5%B9%B412%E6%9C%88%E6%97%A5%E8%AE%B0/">
+                     
+										    2020年12月日记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										2021
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E5%B7%A5%E4%BD%9C%E6%97%A5%E5%BF%97/2021/2021%E5%B9%B401%E6%9C%88%E6%97%A5%E8%AE%B0/">
+                     
+										    2021年01月日记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E5%B7%A5%E4%BD%9C%E6%97%A5%E5%BF%97/2021/2021%E5%B9%B402%E6%9C%88%E6%97%A5%E8%AE%B0/">
+                     
+										    2021年02月日记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E5%B7%A5%E4%BD%9C%E6%97%A5%E5%BF%97/2021/2021%E5%B9%B403%E6%9C%88%E6%97%A5%E8%AE%B0/">
+                     
+										    2021年03月日记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E5%B7%A5%E4%BD%9C%E6%97%A5%E5%BF%97/2021/2021%E5%B9%B404%E6%9C%88%E6%97%A5%E8%AE%B0/">
+                     
+										    2021年04月日记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E5%B7%A5%E4%BD%9C%E6%97%A5%E5%BF%97/2021/2021%E5%B9%B405%E6%9C%88%E6%97%A5%E8%AE%B0/">
+                     
+										    2021年05月日记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E5%B7%A5%E4%BD%9C%E6%97%A5%E5%BF%97/2021/2021%E5%B9%B406%E6%9C%88%E6%97%A5%E8%AE%B0/">
+                     
+										    2021年06月日记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E5%B7%A5%E4%BD%9C%E6%97%A5%E5%BF%97/2021/2021%E5%B9%B407%E6%9C%88%E6%97%A5%E8%AE%B0/">
+                     
+										    2021年07月日记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										2023
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E5%B7%A5%E4%BD%9C%E6%97%A5%E5%BF%97/2023/2023%E5%B9%B408%E6%9C%88%E6%97%A5%E8%AE%B0/">
+                     
+										    2023年08月日记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E5%B7%A5%E4%BD%9C%E6%97%A5%E5%BF%97/2023/2023%E5%B9%B409%E6%9C%88%E6%97%A5%E8%AE%B0/">
+                     
+										    2023年09月日记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E5%B7%A5%E4%BD%9C%E6%97%A5%E5%BF%97/2023/2023%E5%B9%B410%E6%9C%88%E6%97%A5%E8%AE%B0/">
+                     
+										    2023年10月日记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E5%B7%A5%E4%BD%9C%E6%97%A5%E5%BF%97/2023/2023%E5%B9%B411%E6%9C%88%E6%97%A5%E8%AE%B0/">
+                     
+										    2023年11月日记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										操作系统
+									</a>
+									
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										Linux
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Linux/Linux%20%E7%89%88%E6%9C%AC%E5%AF%B9%E6%AF%94/">
+                     
+										    Linux 版本对比
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										Ubuntu
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Linux/Ubuntu/Squid/">
+                     
+										    Squid
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Linux/Ubuntu/Ubuntu-16/">
+                     
+										    Ubuntu-16
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Linux/Ubuntu/Ubuntu-Remote-Desktop/">
+                     
+										    Ubuntu-Remote-Desktop
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Linux/Ubuntu/Ubuntu-zsh/">
+                     
+										    Ubuntu-zsh
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Linux/Ubuntu/Ubuntu/">
+                     
+										    Ubuntu
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										NAS
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/NAS/NAS/">
+                     
+										    NAS
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Thunderbot%20911%20%E9%BB%91%E6%AD%A6%E5%A3%AB%20II/">
+                     
+										    Thunderbot 911 黑武士 II
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										Windows
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Windows/Beyond-Compare/">
+                     
+										    Beyond-Compare
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Windows/Windows10/">
+                     
+										    Windows10
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Windows/Windows7/">
+                     
+										    Windows7
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/Windows/%E7%94%B5%E8%84%91%E7%83%AD%E9%94%AE%E5%86%B2%E7%AA%81%E6%A3%80%E6%B5%8B/">
+                     
+										    电脑热键冲突检测
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										机器学习
+									</a>
+									
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										Deep-Learning
+									</a>
+									
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										Deep-Learning-Flower
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Deep-Learning/Deep-Learning-Flower/Ch08/">
+                     
+										    Ch08
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Deep-Learning/Deep-Learning-Flower/Ch09/">
+                     
+										    Ch09
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Deep-Learning/Deep-Learning-Flower/Ch10/">
+                     
+										    Ch10
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Deep-Learning/Deep-Learning-Flower/Ch14/">
+                     
+										    Ch14
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Deep-Learning/Deep-Learning-Flower/Ch15/">
+                     
+										    Ch15
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Deep-Learning/Deep-Learning-Flower/reference/">
+                     
+										    reference
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										Div-into-Deep-Learning
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Deep-Learning/Div-into-Deep-Learning/Ch05/">
+                     
+										    Ch05
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Deep-Learning/Div-into-Deep-Learning/Encoder-Decoder/">
+                     
+										    Encoder-Decoder
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										Neural-Network-Design-Hagan
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Deep-Learning/Neural-Network-Design-Hagan/Ch04/">
+                     
+										    Ch04
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Deep-Learning/Neural-Network-Design-Hagan/Ch09/">
+                     
+										    Ch09
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										Pattern-Recognition
+									</a>
+									
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										Pattern-Classification-Duda
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Pattern-Recognition/Pattern-Classification-Duda/Ch02/">
+                     
+										    Ch02
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Pattern-Recognition/Pattern-Classification-Duda/Ch03/">
+                     
+										    Ch03
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Pattern-Recognition/Pattern-Classification-Duda/Ch05/">
+                     
+										    Ch05
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Pattern-Recognition/Pattern-Classification-Duda/Ch09/">
+                     
+										    Ch09
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										Pattern-Recognition-Sergios
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Pattern-Recognition/Pattern-Recognition-Sergios/Ch01/">
+                     
+										    Ch01
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Pattern-Recognition/Pattern-Recognition-Sergios/Ch02/">
+                     
+										    Ch02
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Pattern-Recognition/Pattern-Recognition-Sergios/Ch03/">
+                     
+										    Ch03
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										PatternRecognitionMachineLearning
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Pattern-Recognition/PatternRecognitionMachineLearning/Ch01/">
+                     
+										    Ch01
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Pattern-Recognition/PatternRecognitionMachineLearning/Ch02/">
+                     
+										    Ch02
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Pattern-Recognition/PatternRecognitionMachineLearning/Ch03/">
+                     
+										    Ch03
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Pattern-Recognition/PatternRecognitionMachineLearning/Ch04/">
+                     
+										    Ch04
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Pattern-Recognition/PatternRecognitionMachineLearning/Ch05/">
+                     
+										    Ch05
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Pattern-Recognition/PatternRecognitionMachineLearning/Ch06/">
+                     
+										    Ch06
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Pattern-Recognition/PatternRecognitionMachineLearning/Ch07/">
+                     
+										    Ch07
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Pattern-Recognition/PatternRecognitionMachineLearning/Ch08/">
+                     
+										    Ch08
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Pattern-Recognition/PatternRecognitionMachineLearning/Ch09/">
+                     
+										    Ch09
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Pattern-Recognition/PatternRecognitionMachineLearning/Ch10/">
+                     
+										    Ch10
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Pattern-Recognition/PatternRecognitionMachineLearning/Ch14/">
+                     
+										    Ch14
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Pattern-Recognition/PatternRecognitionMachineLearning/preface/">
+                     
+										    preface
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										Statistical-Pattern-Recognition-Andrew
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Pattern-Recognition/Statistical-Pattern-Recognition-Andrew/Ch02/">
+                     
+										    Ch02
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										开发框架
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/Neuroph%20%E5%BC%80%E5%8F%91%E8%BF%87%E7%A8%8B/">
+                     
+										    Neuroph 开发过程
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/PyTorch-DataLoader%E5%AD%A6%E4%B9%A0%E5%85%B3%E9%94%AE%E7%82%B9%E6%80%BB%E7%BB%93/">
+                     
+										    PyTorch-DataLoader学习关键点总结
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/Scikit-Learn%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+                     
+										    Scikit-Learn学习笔记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6/Tensorflow-and-Keras%E4%BD%BF%E7%94%A8%E5%BF%83%E5%BE%97/">
+                     
+										    Tensorflow-and-Keras使用心得
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										机器学习
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Classification-PPT/">
+                     
+										    Classification-PPT
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Ensemble-Learning/">
+                     
+										    Ensemble-Learning
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/ML-Architecture/">
+                     
+										    ML-Architecture
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										Machine-Learning-Interview-Questions
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Machine-Learning-Interview-Questions/Ch07_%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95/">
+                     
+										    Ch07_优化算法
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										Machine-Learning-Mitchell
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Machine-Learning-Mitchell/Ch06/">
+                     
+										    Ch06
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										Machine-Learning-Watermelon
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Machine-Learning-Watermelon/Ch01-Exercises/">
+                     
+										    Ch01-Exercises
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Machine-Learning-Watermelon/Ch01/">
+                     
+										    Ch01
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Machine-Learning-Watermelon/Ch02/">
+                     
+										    Ch02
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Machine-Learning-Watermelon/Ch03/">
+                     
+										    Ch03
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Machine-Learning-Watermelon/Ch04/">
+                     
+										    Ch04
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Machine-Learning-Watermelon/Ch05/">
+                     
+										    Ch05
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Machine-Learning-Watermelon/Ch07/">
+                     
+										    Ch07
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Machine-Learning-Watermelon/Ch08/">
+                     
+										    Ch08
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Machine-Learning-Watermelon/Ch09/">
+                     
+										    Ch09
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Machine-Learning-Watermelon/Ch11/">
+                     
+										    Ch11
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Machine-Learning-Watermelon/appB/">
+                     
+										    appB
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Machine-Learning-Watermelon/reference/">
+                     
+										    reference
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Outline/">
+                     
+										    Outline
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Regression-PPT/">
+                     
+										    Regression-PPT
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										Statistical-Learning-Method-Blue
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Statistical-Learning-Method-Blue/Ch01/">
+                     
+										    Ch01
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Statistical-Learning-Method-Blue/Ch02/">
+                     
+										    Ch02
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Statistical-Learning-Method-Blue/Ch03/">
+                     
+										    Ch03
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Statistical-Learning-Method-Blue/Ch04/">
+                     
+										    Ch04
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Statistical-Learning-Method-Blue/Ch05/">
+                     
+										    Ch05
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Statistical-Learning-Method-Blue/Ch06/">
+                     
+										    Ch06
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Statistical-Learning-Method-Blue/Ch07/">
+                     
+										    Ch07
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Statistical-Learning-Method-Blue/Ch08/">
+                     
+										    Ch08
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Statistical-Learning-Method-Blue/Ch09/">
+                     
+										    Ch09
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Statistical-Learning-Method-Blue/Ch10/">
+                     
+										    Ch10
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Statistical-Learning-Method-Blue/Ch11/">
+                     
+										    Ch11
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Statistical-Learning-Method-Blue/Ch12/">
+                     
+										    Ch12
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Statistical-Learning-Method-Blue/appC/">
+                     
+										    appC
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/Statistical-Learning-Method-Blue/preface/">
+                     
+										    preface
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										exercises
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/exercises/01-NLP%E5%B8%B8%E8%A7%81%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">
+                     
+										    01-NLP常见基础知识
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/exercises/02-LDA%E4%B8%BB%E9%A2%98%E6%A8%A1%E5%9E%8B/">
+                     
+										    02-LDA主题模型
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										回归问题
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/exercises/%E5%9B%9E%E5%BD%92%E9%97%AE%E9%A2%98/%E4%B8%80%E5%85%83%E7%BA%BF%E6%80%A7%E5%9B%9E%E5%BD%92/">
+                     
+										    一元线性回归
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/exercises/%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB%E9%97%AE%E9%A2%98/">
+                     
+										    线性分类问题
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/exercises/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E9%9D%A2%E8%AF%95%E9%97%AE%E9%A2%98%E9%9B%86/">
+                     
+										    自然语言处理面试问题集
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/exercises/%E8%B4%9D%E5%8F%B6%E6%96%AF%E5%AD%A6%E4%B9%A0/">
+                     
+										    贝叶斯学习
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/favorites/">
+                     
+										    favorites
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/reference/">
+                     
+										    reference
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E3%80%8APython%20%E6%95%B0%E6%8D%AE%E7%A7%91%E5%AD%A6%E5%AE%9E%E8%B7%B5%E6%8C%87%E5%8D%97%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
+                     
+										    《Python 数据科学实践指南》读书笔记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E3%80%8A%E5%AE%9E%E7%94%A8%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E3%80%8B%E7%9A%84%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
+                     
+										    《实用机器学习》的读书笔记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E3%80%8A%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E3%80%8B%E7%9A%84%E6%80%9D%E8%80%83/">
+                     
+										    《机器学习》的思考
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E3%80%8A%E6%A6%82%E7%8E%87%E5%9B%BE%E6%A8%A1%E5%9E%8B%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+                     
+										    《概率图模型》学习笔记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E3%80%8A%E6%A8%A1%E5%BC%8F%E8%AF%86%E5%88%AB%E4%B8%8E%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E3%80%8B%E7%9A%84%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
+                     
+										    《模式识别与机器学习》的读书笔记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E3%80%8A%E7%BB%9F%E8%AE%A1%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95%E3%80%8B%E7%9A%84%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
+                     
+										    《统计学习方法》的读书笔记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E9%9D%A2%E8%AF%95%E9%97%AE%E9%A2%98%E9%9B%86/">
+                     
+										    机器学习面试问题集
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E9%AB%98%E9%A2%91%E9%9D%A2%E8%AF%95%E9%A2%98(41%E9%81%93)/">
+                     
+										    机器学习高频面试题(41道)
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E5%B8%B8%E8%A7%81%E4%BC%98%E5%8C%96%E7%AE%97%E6%B3%95%E6%80%BB%E7%BB%93/">
+                     
+										    深度学习常见优化算法总结
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E7%AE%97%E6%B3%95%E5%B7%A5%E7%A8%8B%E5%B8%88%E6%8A%80%E8%83%BD%E8%A1%A8/">
+                     
+										    算法工程师技能表
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										神经网络
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/%E3%80%8APython%20%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E3%80%8B%E7%9A%84%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
+                     
+										    《Python 神经网络编程》的读书笔记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/%E3%80%8A%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E3%80%8B%E7%9A%84%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
+                     
+										    《神经网络与机器学习》的读书笔记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/%E3%80%8A%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%AE%97%E6%B3%95%E4%B8%8E%E5%AE%9E%E7%8E%B0-%E5%9F%BA%E4%BA%8E%20Java%20%E8%AF%AD%E8%A8%80%E3%80%8B%E7%9A%84%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
+                     
+										    《神经网络算法与实现-基于 Java 语言》的读书笔记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										自然语言处理
+									</a>
+									
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										BERT
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/BERT/BERT-Introduction-Train/">
+                     
+										    BERT-Introduction-Train
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										Transformer-Bert-Practice
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/BERT/Transformer-Bert-Practice/BERT%E5%8E%9F%E7%90%86%E5%8F%8A%E5%AE%9E%E7%8E%B0/">
+                     
+										    BERT原理及实现
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/BERT/Transformer-Bert-Practice/Transformer/">
+                     
+										    Transformer
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/BERT/%E4%B8%80%E6%96%87%E8%AF%BB%E6%87%82BERT(%E5%8E%9F%E7%90%86%E7%AF%87)/">
+                     
+										    一文读懂BERT(原理篇)
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/BERT/%E4%B8%80%E6%9C%AC%E8%AF%BB%E6%87%82BERT(%E5%AE%9E%E8%B7%B5%E7%AF%87)/">
+                     
+										    一本读懂BERT(实践篇)
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										ELMO
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/ELMO/ELMO%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90%E5%8F%8A%E7%AE%80%E5%8D%95%E4%B8%8A%E6%89%8B%E5%BA%94%E7%94%A8/">
+                     
+										    ELMO原理解析及简单上手应用
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/Gensim%20%E5%AD%A6%E4%B9%A0%E5%85%B3%E9%94%AE%E7%82%B9%E6%80%BB%E7%BB%93/">
+                     
+										    Gensim 学习关键点总结
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										GloVe
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/GloVe/GloVe%E7%AE%97%E6%B3%95%E5%8E%9F%E7%90%86%E5%8F%8A%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/">
+                     
+										    GloVe算法原理及简单使用
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										Introduction-to-CNLP
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/Introduction-to-CNLP/Ch01/">
+                     
+										    Ch01
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/Introduction-to-CNLP/Ch02/">
+                     
+										    Ch02
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/Introduction-to-CNLP/README/">
+                     
+										    README
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										NNM-for-NLP
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/NNM-for-NLP/Ch01/">
+                     
+										    Ch01
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/NNM-for-NLP/Ch02/">
+                     
+										    Ch02
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/NNM-for-NLP/Ch04/">
+                     
+										    Ch04
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/NNM-for-NLP/Ch08/">
+                     
+										    Ch08
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/NNM-for-NLP/Ch13/">
+                     
+										    Ch13
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/NNM-for-NLP/README/">
+                     
+										    README
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										SLP-Speech-Language-Processing-II
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/SLP-Speech-Language-Processing-II/Ch01/">
+                     
+										    Ch01
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/SLP-Speech-Language-Processing-II/Ch02/">
+                     
+										    Ch02
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/SLP-Speech-Language-Processing-II/Ch03/">
+                     
+										    Ch03
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/SLP-Speech-Language-Processing-II/Ch04/">
+                     
+										    Ch04
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/SLP-Speech-Language-Processing-II/Ch05/">
+                     
+										    Ch05
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/SLP-Speech-Language-Processing-II/Ch06/">
+                     
+										    Ch06
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/SLP-Speech-Language-Processing-II/Ch07/">
+                     
+										    Ch07
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/SLP-Speech-Language-Processing-II/Ch12/">
+                     
+										    Ch12
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/SLP-Speech-Language-Processing-II/Ch15/">
+                     
+										    Ch15
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/SLP-Speech-Language-Processing-II/Ch16/">
+                     
+										    Ch16
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/SLP-Speech-Language-Processing-II/Ch17/">
+                     
+										    Ch17
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/SLP-Speech-Language-Processing-II/Ch18/">
+                     
+										    Ch18
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/SLP-Speech-Language-Processing-II/Ch19/">
+                     
+										    Ch19
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/SLP-Speech-Language-Processing-II/Ch20/">
+                     
+										    Ch20
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/SLP-Speech-Language-Processing-II/Ch21/">
+                     
+										    Ch21
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/SLP-Speech-Language-Processing-II/Ch23/">
+                     
+										    Ch23
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/SLP-Speech-Language-Processing-II/Preface/">
+                     
+										    Preface
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/SLP-Speech-Language-Processing-II/README/">
+                     
+										    README
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/%E3%80%8APython%20%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+                     
+										    《Python 自然语言处理》学习笔记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/%E3%80%8A%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+                     
+										    《自然语言处理》学习笔记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86/%E8%87%AA%E7%84%B6%E8%AF%AD%E8%A8%80%E5%A4%84%E7%90%86%E9%9D%A2%E8%AF%95%E5%B8%B8%E9%97%AE%E9%97%AE%E9%A2%98/">
+                     
+										    自然语言处理面试常问问题
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										计算机视觉
+									</a>
+									
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										Notes
+									</a>
+									
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										3D Processing.三维处理
+									</a>
+									
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										Point Cloud.点云
+									</a>
+									
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										~Reconstruction.点云重建
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/Notes/3D%20Processing.%E4%B8%89%E7%BB%B4%E5%A4%84%E7%90%86/Point%20Cloud.%E7%82%B9%E4%BA%91/~Reconstruction.%E7%82%B9%E4%BA%91%E9%87%8D%E5%BB%BA/MarchingCubes%E7%AE%97%E6%B3%95/">
+                     
+										    MarchingCubes算法
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										OccupancyNetwork.占用网络
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/Notes/3D%20Processing.%E4%B8%89%E7%BB%B4%E5%A4%84%E7%90%86/Point%20Cloud.%E7%82%B9%E4%BA%91/~Reconstruction.%E7%82%B9%E4%BA%91%E9%87%8D%E5%BB%BA/OccupancyNetwork.%E5%8D%A0%E7%94%A8%E7%BD%91%E7%BB%9C/Implicit%20Functions%20in%20Feature%20Space%20for%203D%20Shape%20Reconstruction%20and%20Completion/">
+                     
+										    Implicit Functions in Feature Space for 3D Shape Reconstruction and Completion
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/Notes/3D%20Processing.%E4%B8%89%E7%BB%B4%E5%A4%84%E7%90%86/Point%20Cloud.%E7%82%B9%E4%BA%91/~Reconstruction.%E7%82%B9%E4%BA%91%E9%87%8D%E5%BB%BA/OccupancyNetwork.%E5%8D%A0%E7%94%A8%E7%BD%91%E7%BB%9C/%E9%9A%90%E5%BC%8F%E7%A5%9E%E7%BB%8F%E8%A1%A8%E7%A4%BA%E6%B3%95%E6%98%AF%E4%BB%80%E4%B9%88/">
+                     
+										    隐式神经表示法是什么
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										GeneralModels.通用模型
+									</a>
+									
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										Generative Adversarial Networks.生成对抗网络
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/Notes/GeneralModels.%E9%80%9A%E7%94%A8%E6%A8%A1%E5%9E%8B/Generative%20Adversarial%20Networks.%E7%94%9F%E6%88%90%E5%AF%B9%E6%8A%97%E7%BD%91%E7%BB%9C/%E8%AF%A6%E8%A7%A3GAN%E4%BB%A3%E7%A0%81%E4%B9%8B%E9%80%90%E8%A1%8C%E8%A7%A3%E6%9E%90GAN%E4%BB%A3%E7%A0%81/">
+                     
+										    详解GAN代码之逐行解析GAN代码
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										Images Processing.图像处理
+									</a>
+									
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										~Registration.图像配准
+									</a>
+									
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										2D~3D
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/Notes/Images%20Processing.%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/~Registration.%E5%9B%BE%E5%83%8F%E9%85%8D%E5%87%86/2D~3D/3-D~2-D%20registration%20of%20CT%20and%20MR%20to%20X-ray%20images/">
+                     
+										    3-D~2-D registration of CT and MR to X-ray images
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/Notes/Images%20Processing.%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/~Registration.%E5%9B%BE%E5%83%8F%E9%85%8D%E5%87%86/2D~3D/%E5%8C%BB%E5%AD%A6%E5%9B%BE%E5%83%8F2D_3D%E9%85%8D%E5%87%86%E5%8F%8A%E5%8F%AF%E8%A7%86%E5%8C%96%E7%A0%94%E7%A9%B6/">
+                     
+										    医学图像2D_3D配准及可视化研究
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/Notes/Images%20Processing.%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/~Registration.%E5%9B%BE%E5%83%8F%E9%85%8D%E5%87%86/2D~3D/%E5%8F%A3%E8%85%94%E7%BE%8E%E5%AD%A6%E4%BF%AE%E5%A4%8D%E7%B3%BB%E7%BB%9F/">
+                     
+										    口腔美学修复系统
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/Notes/Images%20Processing.%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/~Registration.%E5%9B%BE%E5%83%8F%E9%85%8D%E5%87%86/2D~3D/%E5%9F%BA%E4%BA%8E2D-3D%E5%9B%BE%E5%83%8F%E9%9D%9E%E5%88%9A%E6%80%A7%E9%85%8D%E5%87%86%E6%96%B9%E6%B3%95%E7%9A%84%E7%A0%94%E7%A9%B6/">
+                     
+										    基于2D-3D图像非刚性配准方法的研究
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/Notes/Images%20Processing.%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/~Registration.%E5%9B%BE%E5%83%8F%E9%85%8D%E5%87%86/2D~3D/%E5%9F%BA%E4%BA%8E%E4%BA%8C%E7%BB%B4%E5%9B%BE%E7%89%87%E5%92%8C%E4%B8%89%E7%BB%B4%E5%85%89%E5%AD%A6%E6%89%AB%E6%8F%8F%E6%95%B0%E6%8D%AE%E7%9A%84%E5%8F%A3%E8%85%94%E7%BE%8E%E5%AD%A6%E4%BF%AE%E5%A4%8D%E7%B3%BB%E7%BB%9F%E7%9A%84%E7%A0%94%E7%A9%B6/">
+                     
+										    基于二维图片和三维光学扫描数据的口腔美学修复系统的研究
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/Notes/Images%20Processing.%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/~Registration.%E5%9B%BE%E5%83%8F%E9%85%8D%E5%87%86/3D-2D%E5%9B%BE%E5%83%8F%E9%85%8D%E5%87%86/">
+                     
+										    3D-2D图像配准
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										Survey
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/Notes/Images%20Processing.%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/~Registration.%E5%9B%BE%E5%83%8F%E9%85%8D%E5%87%86/Survey/%E5%8C%BB%E5%AD%A6%E5%9B%BE%E5%83%8F%E9%85%8D%E5%87%86%E7%9A%84%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95%E7%BB%BC%E8%BF%B0/">
+                     
+										    医学图像配准的深度学习方法综述
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/Notes/Images%20Processing.%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/~Registration.%E5%9B%BE%E5%83%8F%E9%85%8D%E5%87%86/Survey/%E5%9F%BA%E4%BA%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E7%9A%84%E5%8C%BB%E5%AD%A6%E5%BD%B1%E5%83%8F%E9%85%8D%E5%87%86%E7%BB%BC%E8%BF%B0/">
+                     
+										    基于深度学习的医学影像配准综述
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/Notes/Images%20Processing.%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/~Registration.%E5%9B%BE%E5%83%8F%E9%85%8D%E5%87%86/image%20registration/">
+                     
+										    image registration
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										~Relocalization.图像重定位
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/Notes/Images%20Processing.%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/~Relocalization.%E5%9B%BE%E5%83%8F%E9%87%8D%E5%AE%9A%E4%BD%8D/%E5%9F%BA%E4%BA%8E%E6%B7%B1%E5%BA%A6%E7%89%B9%E5%BE%81%E7%9A%84%E5%9B%BE%E5%83%8F%E9%87%8D%E5%AE%9A%E4%BD%8D/">
+                     
+										    基于深度特征的图像重定位
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										~Segmentation.图像分割
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/Notes/Images%20Processing.%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/~Segmentation.%E5%9B%BE%E5%83%8F%E5%88%86%E5%89%B2/Image_Segmentation/">
+                     
+										    Image_Segmentation
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/Notes/Images%20Processing.%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/~Segmentation.%E5%9B%BE%E5%83%8F%E5%88%86%E5%89%B2/Rethinking_BiSeNet_For_Real-time_Semantic_Segmentation/">
+                     
+										    Rethinking_BiSeNet_For_Real-time_Semantic_Segmentation
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/Notes/Images%20Processing.%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/~Segmentation.%E5%9B%BE%E5%83%8F%E5%88%86%E5%89%B2/%E5%9B%BE%E5%83%8F%E5%88%87%E5%89%B2/">
+                     
+										    图像切割
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										三维处理
+									</a>
+									
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										体素
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E4%B8%89%E7%BB%B4%E5%A4%84%E7%90%86/%E4%BD%93%E7%B4%A0/%E7%94%A8Python%E4%BD%93%E7%B4%A0%E5%8C%963D%E7%BD%91%E6%A0%BC%E5%92%8C%E7%82%B9%E4%BA%91/">
+                     
+										    用Python体素化3D网格和点云
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										点云
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E4%B8%89%E7%BB%B4%E5%A4%84%E7%90%86/%E7%82%B9%E4%BA%91/Learning%20representations%20and%20generative%20models%20for%203D%20point%20clouds/">
+                     
+										    Learning representations and generative models for 3D point clouds
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										PointNet
+									</a>
+									
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										Notes
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E4%B8%89%E7%BB%B4%E5%A4%84%E7%90%86/%E7%82%B9%E4%BA%91/PointNet/Notes/PointNet%20Deep%20Learning%20on%20Point%20Sets%20for%203D%20Classification%20and%20Segmentation/">
+                     
+										    PointNet Deep Learning on Point Sets for 3D Classification and Segmentation
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E4%B8%89%E7%BB%B4%E5%A4%84%E7%90%86/%E7%82%B9%E4%BA%91/PointNet/Notes/PointNet++%20Deep%20Hierarchical%20Feature%20Learning%20on%20Point%20Sets%20in%20a%20Metric%20Space/">
+                     
+										    PointNet++ Deep Hierarchical Feature Learning on Point Sets in a Metric Space
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E4%B8%89%E7%BB%B4%E5%A4%84%E7%90%86/%E7%82%B9%E4%BA%91/PointNet/Notes/%E7%82%B9%E4%BA%91%E9%97%AE%E9%A2%98/">
+                     
+										    点云问题
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E4%B8%89%E7%BB%B4%E5%A4%84%E7%90%86/%E7%82%B9%E4%BA%91/PointNet/PointNet%20Deep%20Learning%20on%20Point%20Sets%20for%203D%20Classification%20and%20Segmentation/">
+                     
+										    PointNet Deep Learning on Point Sets for 3D Classification and Segmentation
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E4%B8%89%E7%BB%B4%E5%A4%84%E7%90%86/%E7%82%B9%E4%BA%91/PointNet/PointNet++%20Deep%20Hierarchical%20Feature%20Learning%20on%20Point%20Sets%20in%20a%20Metric%20Space/">
+                     
+										    PointNet++ Deep Hierarchical Feature Learning on Point Sets in a Metric Space
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E4%B8%89%E7%BB%B4%E5%A4%84%E7%90%86/%E7%82%B9%E4%BA%91/PointNet/PointNetLK%20Robust%20&%20Efficient%20Point%20Cloud%20Registration%20using%20PointNet/">
+                     
+										    PointNetLK Robust & Efficient Point Cloud Registration using PointNet
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E4%B8%89%E7%BB%B4%E5%A4%84%E7%90%86/%E7%82%B9%E4%BA%91/PointNet/Spatial%20Transformer%20Networks/">
+                     
+										    Spatial Transformer Networks
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										占用网络
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E4%B8%89%E7%BB%B4%E5%A4%84%E7%90%86/%E7%82%B9%E4%BA%91/%E5%8D%A0%E7%94%A8%E7%BD%91%E7%BB%9C/Implicit_Functions_in_Feature_Space_for_3D_Shape_Reconstruction_and_Completion.Supplementary_Material/">
+                     
+										    Implicit_Functions_in_Feature_Space_for_3D_Shape_Reconstruction_and_Completion.Supplementary_Material
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E4%B8%89%E7%BB%B4%E5%A4%84%E7%90%86/%E7%82%B9%E4%BA%91/%E5%8D%A0%E7%94%A8%E7%BD%91%E7%BB%9C/Implicit_Functions_in_Feature_Space_for_3D_Shape_Reconstruction_and_Completion/">
+                     
+										    Implicit_Functions_in_Feature_Space_for_3D_Shape_Reconstruction_and_Completion
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E4%B8%89%E7%BB%B4%E5%A4%84%E7%90%86/%E7%82%B9%E4%BA%91/%E5%8D%A0%E7%94%A8%E7%BD%91%E7%BB%9C/Occupancy_Networks_Learning_3D_Reconstruction_in_Function_Space/">
+                     
+										    Occupancy_Networks_Learning_3D_Reconstruction_in_Function_Space
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E4%B8%89%E7%BB%B4%E5%A4%84%E7%90%86/%E7%82%B9%E4%BA%91/%E5%8D%A0%E7%94%A8%E7%BD%91%E7%BB%9C/Self-attention_implicit_function_networks_for_3D_dental_data_completion/">
+                     
+										    Self-attention_implicit_function_networks_for_3D_dental_data_completion
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										点云补全
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E4%B8%89%E7%BB%B4%E5%A4%84%E7%90%86/%E7%82%B9%E4%BA%91/%E7%82%B9%E4%BA%91%E8%A1%A5%E5%85%A8/PCN%20Point%20Completion%20Network/">
+                     
+										    PCN Point Completion Network
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E4%B8%89%E7%BB%B4%E5%A4%84%E7%90%86/%E7%82%B9%E4%BA%91/%E7%82%B9%E4%BA%91%E8%A1%A5%E5%85%A8/PMP-Net%20Point%20Cloud%20Completion%20by%20Learning%20Multi-step%20Point%20Moving%20Paths/">
+                     
+										    PMP-Net Point Cloud Completion by Learning Multi-step Point Moving Paths
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E4%B8%89%E7%BB%B4%E5%A4%84%E7%90%86/%E7%82%B9%E4%BA%91/%E7%82%B9%E4%BA%91%E8%A1%A5%E5%85%A8/PMP-Net++%20Point%20Cloud%20Completion%20by%20Transformer-Enhanced%20Multi-step%20Point%20Moving%20Paths/">
+                     
+										    PMP-Net++ Point Cloud Completion by Transformer-Enhanced Multi-step Point Moving Paths
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										综述
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E4%B8%89%E7%BB%B4%E5%A4%84%E7%90%86/%E7%82%B9%E4%BA%91/%E7%BB%BC%E8%BF%B0/Deep%20Learning%20for%203D%20Point%20Clouds%20A%20Survey/">
+                     
+										    Deep Learning for 3D Point Clouds A Survey
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										网格
+									</a>
+									
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										MeshSegNet
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E4%B8%89%E7%BB%B4%E5%A4%84%E7%90%86/%E7%BD%91%E6%A0%BC/MeshSegNet/Deep%20Multi-Scale%20Mesh%20Feature%20Learning%20for%20Automated%20Labeling%20of%20Raw%20Dental%20Surfaces%20from%203D%20Intraoral%20Scanners/">
+                     
+										    Deep Multi-Scale Mesh Feature Learning for Automated Labeling of Raw Dental Surfaces from 3D Intraoral Scanners
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										图像处理
+									</a>
+									
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										图像分割
+									</a>
+									
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										Semantic~.语义分割
+									</a>
+									
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										Real-Time~
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/%E5%9B%BE%E5%83%8F%E5%88%86%E5%89%B2/Semantic~.%E8%AF%AD%E4%B9%89%E5%88%86%E5%89%B2/Real-Time~/BiSeNet_Bilateral_Segmentation_Network_for_Real-time_Semantic_Segmentation/">
+                     
+										    BiSeNet_Bilateral_Segmentation_Network_for_Real-time_Semantic_Segmentation
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/%E5%9B%BE%E5%83%8F%E5%88%86%E5%89%B2/Semantic~.%E8%AF%AD%E4%B9%89%E5%88%86%E5%89%B2/Real-Time~/BiSeNet_V2_Bilateral_Network_with_Guided_Aggregation_for_Real-time_Semantic_Segmentation/">
+                     
+										    BiSeNet_V2_Bilateral_Network_with_Guided_Aggregation_for_Real-time_Semantic_Segmentation
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/%E5%9B%BE%E5%83%8F%E5%88%86%E5%89%B2/Semantic~.%E8%AF%AD%E4%B9%89%E5%88%86%E5%89%B2/Real-Time~/PPLiteSeg_A_Superior_Real-Time_Semantic_Segmentation_Model/">
+                     
+										    PPLiteSeg_A_Superior_Real-Time_Semantic_Segmentation_Model
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/%E5%9B%BE%E5%83%8F%E5%88%86%E5%89%B2/Semantic~.%E8%AF%AD%E4%B9%89%E5%88%86%E5%89%B2/Real-Time~/Rethinking_BiSeNet_For_Real-time_Semantic_Segmentation/">
+                     
+										    Rethinking_BiSeNet_For_Real-time_Semantic_Segmentation
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										图像配准
+									</a>
+									
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										2D~3D
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/%E5%9B%BE%E5%83%8F%E9%85%8D%E5%87%86/2D~3D/3D_2D_registration_of_CT_and_MR_to_X-ray_images/">
+                     
+										    3D_2D_registration_of_CT_and_MR_to_X-ray_images
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/%E5%9B%BE%E5%83%8F%E9%85%8D%E5%87%86/2D~3D/Image_to_Geometry_Registration_for_Virtual_Virtual_Dental_Models/">
+                     
+										    Image_to_Geometry_Registration_for_Virtual_Virtual_Dental_Models
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										图像重建
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/%E5%9B%BE%E5%83%8F%E9%87%8D%E5%BB%BA/InfiniTAM%20v3%20A%20Framework%20for%20Large-Scale%203D%20Reconstruction%20with%20Loop%20Closure/">
+                     
+										    InfiniTAM v3 A Framework for Large-Scale 3D Reconstruction with Loop Closure
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										评价标准
+									</a>
+									
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										Notes
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/%E8%AF%84%E4%BB%B7%E6%A0%87%E5%87%86/Notes/%E5%9B%BE%E5%83%8F%E8%B4%A8%E9%87%8F%E8%AF%84%E4%BC%B0%E6%96%B9%E6%B3%95%E5%8F%8A%E4%BB%A3%E7%A0%81/">
+                     
+										    图像质量评估方法及代码
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/%E8%AF%84%E4%BB%B7%E6%A0%87%E5%87%86/Notes/%E5%9B%BE%E7%89%87%E7%9B%B8%E4%BC%BC%E5%BA%A6%E8%AE%A1%E7%AE%97/">
+                     
+										    图片相似度计算
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										基础概念
+									</a>
+									
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										三维图形
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/%E4%B8%89%E7%BB%B4%E5%9B%BE%E5%BD%A2/%E4%B8%89%E7%BB%B4%E5%9B%BE%E5%BD%A2%E5%AD%A6%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E6%BE%84%E6%B8%85/">
+                     
+										    三维图形学基本概念澄清
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/%E4%B8%89%E7%BB%B4%E5%9B%BE%E5%BD%A2/%E4%B8%89%E7%BB%B4%E5%9B%BE%E5%BD%A2%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E7%82%B9%E6%B1%87%E6%80%BB/">
+                     
+										    三维图形相关知识点汇总
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										文件格式
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/%E4%B8%89%E7%BB%B4%E5%9B%BE%E5%BD%A2/%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F/MTL%E6%96%87%E4%BB%B6/">
+                     
+										    MTL文件
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/%E4%B8%89%E7%BB%B4%E5%9B%BE%E5%BD%A2/%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F/OBJ%E6%96%87%E4%BB%B6/">
+                     
+										    OBJ文件
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/%E4%B8%89%E7%BB%B4%E5%9B%BE%E5%BD%A2/%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F/PLY%E6%96%87%E4%BB%B6/">
+                     
+										    PLY文件
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/%E4%B8%89%E7%BB%B4%E5%9B%BE%E5%BD%A2/%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F/STL%E6%96%87%E4%BB%B6/">
+                     
+										    STL文件
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/%E4%B8%89%E7%BB%B4%E5%9B%BE%E5%BD%A2/%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F/STP%E6%96%87%E4%BB%B6/">
+                     
+										    STP文件
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/%E4%B8%89%E7%BB%B4%E5%9B%BE%E5%BD%A2/%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F/%E5%B8%B8%E8%A7%81%E7%9A%84%E6%95%B0%E6%8D%AE%E6%A0%BC%E5%BC%8F/">
+                     
+										    常见的数据格式
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/%E4%B8%89%E7%BB%B4%E5%9B%BE%E5%BD%A2/%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F/%E5%B8%B8%E8%A7%81%E7%9A%84%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F/">
+                     
+										    常见的文件格式
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										研究方法
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/%E7%A0%94%E7%A9%B6%E6%96%B9%E6%B3%95/%E6%B6%88%E8%9E%8D%E7%A0%94%E7%A9%B6%EF%BC%88ablation%20study%EF%BC%89%E6%98%AF%E4%BB%80%E4%B9%88/">
+                     
+										    消融研究（ablation study）是什么
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										算法应用
+									</a>
+									
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										牙科
+									</a>
+									
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										CAD
+									</a>
+									
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										CEREC
+									</a>
+									
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										Notes
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E7%AE%97%E6%B3%95%E5%BA%94%E7%94%A8/%E7%89%99%E7%A7%91/CAD/CEREC/Notes/CEREC%E6%A4%85%E6%97%81CAD_CAM%E4%BF%AE%E5%A4%8D%E7%B3%BB%E7%BB%9F%E6%A6%82%E5%86%B5/">
+                     
+										    CEREC椅旁CAD_CAM修复系统概况
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E7%AE%97%E6%B3%95%E5%BA%94%E7%94%A8/%E7%89%99%E7%A7%91/CAD/CEREC/Notes/CEREC%E6%A4%85%E6%97%81CAD_CAM%E8%AF%8A%E5%AE%A4%E6%8A%80%E6%9C%AF25%E5%B9%B4%E7%9A%84%E7%A0%94%E7%A9%B6%E8%BF%9B%E5%B1%95/">
+                     
+										    CEREC椅旁CAD_CAM诊室技术25年的研究进展
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E7%AE%97%E6%B3%95%E5%BA%94%E7%94%A8/%E7%89%99%E7%A7%91/CAD/CEREC/Notes/Computerized%20technology%20for%20restorative%20dentistry/">
+                     
+										    Computerized technology for restorative dentistry
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E7%AE%97%E6%B3%95%E5%BA%94%E7%94%A8/%E7%89%99%E7%A7%91/CAD/CEREC/Notes/%E5%8F%A3%E8%85%94%E4%BF%AE%E5%A4%8D%E6%95%B0%E5%AD%97%E5%8C%96_%E5%8D%B0%E6%A8%A1_%E6%AF%94%E8%89%B2_%E6%9D%90%E6%96%99%E8%AE%BE%E8%AE%A1%E5%8F%8A%E5%8A%A0%E5%B7%A5/">
+                     
+										    口腔修复数字化_印模_比色_材料设计及加工
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										技工CAD
+									</a>
+									
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										Notes
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E7%AE%97%E6%B3%95%E5%BA%94%E7%94%A8/%E7%89%99%E7%A7%91/CAD/%E6%8A%80%E5%B7%A5CAD/Notes/Fully%20digital%20workflow,%20integrating%20dental%20scan,%20smile%20design%20and%20CAD-CAM%20case%20report/">
+                     
+										    Fully digital workflow, integrating dental scan, smile design and CAD-CAM case report
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E7%AE%97%E6%B3%95%E5%BA%94%E7%94%A8/%E7%89%99%E7%A7%91/CAD/%E6%8A%80%E5%B7%A5CAD/Notes/Guided%20tooth%20preparation%20device%20fabricated%20with%20a%20complete%20digital%20workflow%20A%20dental%20technique/">
+                     
+										    Guided tooth preparation device fabricated with a complete digital workflow A dental technique
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										椅旁CAD
+									</a>
+									
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										Notes
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E7%AE%97%E6%B3%95%E5%BA%94%E7%94%A8/%E7%89%99%E7%A7%91/CAD/%E6%A4%85%E6%97%81CAD/Notes/%E4%BB%8E%E5%B7%A5%E7%A8%8B%E6%8A%80%E6%9C%AF%E8%A7%92%E5%BA%A6%E8%B0%88%E5%8F%A3%E8%85%94%E5%8C%BB%E5%AD%A6%E6%A4%85%E6%97%81%E6%95%B0%E5%AD%97%E5%8C%96%E6%8A%80%E6%9C%AF/">
+                     
+										    从工程技术角度谈口腔医学椅旁数字化技术
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E7%AE%97%E6%B3%95%E5%BA%94%E7%94%A8/%E7%89%99%E7%A7%91/CAD/%E6%A4%85%E6%97%81CAD/Notes/%E5%8D%95%E7%89%99%E5%8D%B3%E5%88%BB%E7%A7%8D%E6%A4%8D%E6%A4%85%E6%97%81%E6%95%B0%E5%AD%97%E5%8C%96%E5%8D%B3%E5%88%BB%E4%BF%AE%E5%A4%8D%E7%9A%84%E4%B8%B4%E5%BA%8A%E8%A7%82%E5%AF%9F/">
+                     
+										    单牙即刻种植椅旁数字化即刻修复的临床观察
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E7%AE%97%E6%B3%95%E5%BA%94%E7%94%A8/%E7%89%99%E7%A7%91/CAD/%E6%A4%85%E6%97%81CAD/Notes/%E6%A4%85%E6%97%81CAD_CAM%E4%BF%AE%E5%A4%8D%E4%BD%93%E8%BE%B9%E7%BC%98%E9%80%82%E5%BA%94%E6%80%A7%E7%9A%84%E7%A0%94%E7%A9%B6%E8%BF%9B%E5%B1%95/">
+                     
+										    椅旁CAD_CAM修复体边缘适应性的研究进展
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E7%AE%97%E6%B3%95%E5%BA%94%E7%94%A8/%E7%89%99%E7%A7%91/CAD/%E6%A4%85%E6%97%81CAD/Notes/%E6%A4%85%E6%97%81CAD_CAM%E4%BF%AE%E5%A4%8D%E6%9D%90%E6%96%99%E5%88%86%E7%B1%BB%E5%92%8C%E6%96%B0%E8%BF%9B%E5%B1%95/">
+                     
+										    椅旁CAD_CAM修复材料分类和新进展
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E7%AE%97%E6%B3%95%E5%BA%94%E7%94%A8/%E7%89%99%E7%A7%91/CAD/%E6%A4%85%E6%97%81CAD/Notes/%E6%A4%85%E6%97%81CAD_CAM%E5%B5%8C%E4%BD%93%E4%BF%AE%E5%A4%8D%E6%8A%80%E6%9C%AF%E4%B8%B4%E5%BA%8A%E8%BF%9B%E5%B1%95/">
+                     
+										    椅旁CAD_CAM嵌体修复技术临床进展
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E7%AE%97%E6%B3%95%E5%BA%94%E7%94%A8/%E7%89%99%E7%A7%91/CAD/%E6%A4%85%E6%97%81CAD/Notes/%E6%A4%85%E6%97%81CAD_CAM%E6%8A%80%E6%9C%AF%E5%9C%A8%E5%8F%A3%E8%85%94%E4%BF%AE%E5%A4%8D%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8/">
+                     
+										    椅旁CAD_CAM技术在口腔修复中的应用
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E7%AE%97%E6%B3%95%E5%BA%94%E7%94%A8/%E7%89%99%E7%A7%91/CAD/%E6%A4%85%E6%97%81CAD/Notes/%E6%A4%85%E6%97%81%E6%95%B0%E5%AD%97%E5%8C%96%E4%BF%AE%E5%A4%8D%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%8E%86%E5%8F%B2%E5%92%8C%E5%8F%91%E5%B1%95/">
+                     
+										    椅旁数字化修复系统的历史和发展
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E7%AE%97%E6%B3%95%E5%BA%94%E7%94%A8/%E7%89%99%E7%A7%91/CAD/%E6%A4%85%E6%97%81CAD/Notes/%E6%A4%85%E6%97%81%E7%89%99%E7%A7%91CAD_CAM%E7%B3%BB%E7%BB%9F%E5%8F%8A%E4%B8%B4%E5%BA%8A%E5%BA%94%E7%94%A8%E8%BF%9B%E5%B1%95/">
+                     
+										    椅旁牙科CAD_CAM系统及临床应用进展
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E7%AE%97%E6%B3%95%E5%BA%94%E7%94%A8/%E7%89%99%E7%A7%91/CAD/%E6%A4%85%E6%97%81CAD/Notes/%E6%A4%85%E6%97%81%E7%94%9F%E7%89%A9%E5%86%8D%E9%80%A0%E5%8A%9F%E8%83%BD%E8%AE%BE%E8%AE%A1%E5%85%A8%E5%86%A0%E5%92%AC%E5%90%88%E9%9D%A2%E5%8F%8A%E9%82%BB%E9%9D%A2%E6%8E%A5%E8%A7%A6%E7%A9%BF%E9%80%8F%E5%8C%BA%E9%9D%A2%E7%A7%AF%E7%9A%84%E6%AF%94%E8%BE%83/">
+                     
+										    椅旁生物再造功能设计全冠咬合面及邻面接触穿透区面积的比较
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E7%AE%97%E6%B3%95%E5%BA%94%E7%94%A8/%E7%89%99%E7%A7%91/CAD/%E6%A4%85%E6%97%81CAD/Notes/%E6%A4%85%E6%97%81%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%BE%85%E5%8A%A9%E8%AE%BE%E8%AE%A1%E4%B8%8E%E8%BE%85%E5%8A%A9%E5%88%B6%E4%BD%9C%E6%8A%80%E6%9C%AF%E5%9C%A8%E5%89%8D%E7%89%99%E7%BE%8E%E5%AD%A6%E4%BF%AE%E5%A4%8D%E4%B8%AD%E7%9A%84%E5%BA%94%E7%94%A8%E8%A6%81%E7%82%B9/">
+                     
+										    椅旁计算机辅助设计与辅助制作技术在前牙美学修复中的应用要点
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										修复
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E7%AE%97%E6%B3%95%E5%BA%94%E7%94%A8/%E7%89%99%E7%A7%91/%E4%BF%AE%E5%A4%8D/Efficient%20Computer-aided%20Design%20of%20Dental%20Inlay%20Restoration%20A%20Deep%20Adversarial%20Framework/">
+                     
+										    Efficient Computer-aided Design of Dental Inlay Restoration A Deep Adversarial Framework
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E7%AE%97%E6%B3%95%E5%BA%94%E7%94%A8/%E7%89%99%E7%A7%91/%E4%BF%AE%E5%A4%8D/Learning%20beyond%20human%20expertise%20with%20generative%20models%20for%20dental%20restorations/">
+                     
+										    Learning beyond human expertise with generative models for dental restorations
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										友商
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E7%AE%97%E6%B3%95%E5%BA%94%E7%94%A8/%E7%89%99%E7%A7%91/%E5%8F%8B%E5%95%86/3dme/">
+                     
+										    3dme
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E7%AE%97%E6%B3%95%E5%BA%94%E7%94%A8/%E7%89%99%E7%A7%91/%E5%8F%8B%E5%95%86/3shape/">
+                     
+										    3shape
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E7%AE%97%E6%B3%95%E5%BA%94%E7%94%A8/%E7%89%99%E7%A7%91/%E5%8F%8B%E5%95%86/align_tech/">
+                     
+										    align_tech
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E7%AE%97%E6%B3%95%E5%BA%94%E7%94%A8/%E7%89%99%E7%A7%91/%E5%8F%8B%E5%95%86/dentidesk/">
+                     
+										    dentidesk
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E7%AE%97%E6%B3%95%E5%BA%94%E7%94%A8/%E7%89%99%E7%A7%91/%E5%8F%8B%E5%95%86/digital_impression/">
+                     
+										    digital_impression
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E7%AE%97%E6%B3%95%E5%BA%94%E7%94%A8/%E7%89%99%E7%A7%91/%E5%8F%8B%E5%95%86/exocad/">
+                     
+										    exocad
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E7%AE%97%E6%B3%95%E5%BA%94%E7%94%A8/%E7%89%99%E7%A7%91/%E5%8F%8B%E5%95%86/planmeca/">
+                     
+										    planmeca
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E7%AE%97%E6%B3%95%E5%BA%94%E7%94%A8/%E7%89%99%E7%A7%91/%E5%8F%8B%E5%95%86/zfx-dental/">
+                     
+										    zfx-dental
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										排牙
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E7%AE%97%E6%B3%95%E5%BA%94%E7%94%A8/%E7%89%99%E7%A7%91/%E6%8E%92%E7%89%99/TANet%20Towards%20Fully%20Automatic%20Tooth%20Arrangement/">
+                     
+										    TANet Towards Fully Automatic Tooth Arrangement
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										视频处理
+									</a>
+									
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										视频对象分割
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E8%A7%86%E9%A2%91%E5%A4%84%E7%90%86/%E8%A7%86%E9%A2%91%E5%AF%B9%E8%B1%A1%E5%88%86%E5%89%B2/Associating_objects_with_transformers_for_video_object_segmentation/">
+                     
+										    Associating_objects_with_transformers_for_video_object_segmentation
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										半监督对象分割
+									</a>
+									
+							<ul>
+								<li class="file active">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E8%A7%86%E9%A2%91%E5%A4%84%E7%90%86/%E8%A7%86%E9%A2%91%E5%AF%B9%E8%B1%A1%E5%88%86%E5%89%B2/%E5%8D%8A%E7%9B%91%E7%9D%A3%E5%AF%B9%E8%B1%A1%E5%88%86%E5%89%B2/XMem_Long-Term_Video_Object_Segmentation_with_an_Atkinson-Shiffrin_Memory_Model/">
+                     
+										    XMem_Long-Term_Video_Object_Segmentation_with_an_Atkinson-Shiffrin_Memory_Model
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										无监督对象分割
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E8%A7%86%E9%A2%91%E5%A4%84%E7%90%86/%E8%A7%86%E9%A2%91%E5%AF%B9%E8%B1%A1%E5%88%86%E5%89%B2/%E6%97%A0%E7%9B%91%E7%9D%A3%E5%AF%B9%E8%B1%A1%E5%88%86%E5%89%B2/Treating_Motion_as_Option_to_Reduce_Motion_Dependency_in_Unsupervised_Video_Object_Segmentation/">
+                     
+										    Treating_Motion_as_Option_to_Reduce_Motion_Dependency_in_Unsupervised_Video_Object_Segmentation
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										综述
+									</a>
+									
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										A Survey on Deep Learning Technique for Video Segmentation
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E8%A7%86%E9%A2%91%E5%A4%84%E7%90%86/%E8%A7%86%E9%A2%91%E5%AF%B9%E8%B1%A1%E5%88%86%E5%89%B2/%E7%BB%BC%E8%BF%B0/A%20Survey%20on%20Deep%20Learning%20Technique%20for%20Video%20Segmentation/Abstract/">
+                     
+										    Abstract
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										Deep learning for video object segmentation a review
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E8%A7%86%E9%A2%91%E5%A4%84%E7%90%86/%E8%A7%86%E9%A2%91%E5%AF%B9%E8%B1%A1%E5%88%86%E5%89%B2/%E7%BB%BC%E8%BF%B0/Deep%20learning%20for%20video%20object%20segmentation%20a%20review/README/">
+                     
+										    README
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										Sections
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E8%A7%86%E9%A2%91%E5%A4%84%E7%90%86/%E8%A7%86%E9%A2%91%E5%AF%B9%E8%B1%A1%E5%88%86%E5%89%B2/%E7%BB%BC%E8%BF%B0/Deep%20learning%20for%20video%20object%20segmentation%20a%20review/Sections/Abstract/">
+                     
+										    Abstract
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E8%A7%86%E9%A2%91%E5%A4%84%E7%90%86/%E8%A7%86%E9%A2%91%E5%AF%B9%E8%B1%A1%E5%88%86%E5%89%B2/%E7%BB%BC%E8%BF%B0/Deep%20learning%20for%20video%20object%20segmentation%20a%20review/Sections/Section_1_Introduction/">
+                     
+										    Section_1_Introduction
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E8%A7%86%E9%A2%91%E5%A4%84%E7%90%86/%E8%A7%86%E9%A2%91%E5%AF%B9%E8%B1%A1%E5%88%86%E5%89%B2/%E7%BB%BC%E8%BF%B0/Deep%20learning%20for%20video%20object%20segmentation%20a%20review/Sections/Section_2_Background/">
+                     
+										    Section_2_Background
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E8%A7%86%E9%A2%91%E5%A4%84%E7%90%86/%E8%A7%86%E9%A2%91%E5%AF%B9%E8%B1%A1%E5%88%86%E5%89%B2/%E7%BB%BC%E8%BF%B0/Deep%20learning%20for%20video%20object%20segmentation%20a%20review/Sections/Section_3_Datasets/">
+                     
+										    Section_3_Datasets
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E8%A7%86%E9%A2%91%E5%A4%84%E7%90%86/%E8%A7%86%E9%A2%91%E5%AF%B9%E8%B1%A1%E5%88%86%E5%89%B2/%E7%BB%BC%E8%BF%B0/Deep%20learning%20for%20video%20object%20segmentation%20a%20review/Sections/Section_4_1_Online_methods/">
+                     
+										    Section_4_1_Online_methods
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E8%A7%86%E9%A2%91%E5%A4%84%E7%90%86/%E8%A7%86%E9%A2%91%E5%AF%B9%E8%B1%A1%E5%88%86%E5%89%B2/%E7%BB%BC%E8%BF%B0/Deep%20learning%20for%20video%20object%20segmentation%20a%20review/Sections/Section_4_2_Matching_methods/">
+                     
+										    Section_4_2_Matching_methods
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E8%A7%86%E9%A2%91%E5%A4%84%E7%90%86/%E8%A7%86%E9%A2%91%E5%AF%B9%E8%B1%A1%E5%88%86%E5%89%B2/%E7%BB%BC%E8%BF%B0/Deep%20learning%20for%20video%20object%20segmentation%20a%20review/Sections/Section_4_3_Graph_methods/">
+                     
+										    Section_4_3_Graph_methods
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E8%A7%86%E9%A2%91%E5%A4%84%E7%90%86/%E8%A7%86%E9%A2%91%E5%AF%B9%E8%B1%A1%E5%88%86%E5%89%B2/%E7%BB%BC%E8%BF%B0/Deep%20learning%20for%20video%20object%20segmentation%20a%20review/Sections/Section_4_4_Optical_flow_methods/">
+                     
+										    Section_4_4_Optical_flow_methods
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E8%A7%86%E9%A2%91%E5%A4%84%E7%90%86/%E8%A7%86%E9%A2%91%E5%AF%B9%E8%B1%A1%E5%88%86%E5%89%B2/%E7%BB%BC%E8%BF%B0/Deep%20learning%20for%20video%20object%20segmentation%20a%20review/Sections/Section_4_5_Mask_Prop_methods/">
+                     
+										    Section_4_5_Mask_Prop_methods
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E8%A7%86%E9%A2%91%E5%A4%84%E7%90%86/%E8%A7%86%E9%A2%91%E5%AF%B9%E8%B1%A1%E5%88%86%E5%89%B2/%E7%BB%BC%E8%BF%B0/Deep%20learning%20for%20video%20object%20segmentation%20a%20review/Sections/Section_4_6_Long_Prop/">
+                     
+										    Section_4_6_Long_Prop
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E8%A7%86%E9%A2%91%E5%A4%84%E7%90%86/%E8%A7%86%E9%A2%91%E5%AF%B9%E8%B1%A1%E5%88%86%E5%89%B2/%E7%BB%BC%E8%BF%B0/Deep%20learning%20for%20video%20object%20segmentation%20a%20review/Sections/Section_4_Methods/">
+                     
+										    Section_4_Methods
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E8%A7%86%E9%A2%91%E5%A4%84%E7%90%86/%E8%A7%86%E9%A2%91%E5%AF%B9%E8%B1%A1%E5%88%86%E5%89%B2/%E7%BB%BC%E8%BF%B0/Deep%20learning%20for%20video%20object%20segmentation%20a%20review/Sections/Section_5_Experimental_results/">
+                     
+										    Section_5_Experimental_results
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										计算机图形学
+									</a>
+									
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										Fundamentals_of_ComputerGraphics_PeterShirley
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6/Fundamentals_of_ComputerGraphics_PeterShirley/Ch01/">
+                     
+										    Ch01
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6/Fundamentals_of_ComputerGraphics_PeterShirley/Ch02/">
+                     
+										    Ch02
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6/Fundamentals_of_ComputerGraphics_PeterShirley/Ch03/">
+                     
+										    Ch03
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9B%BE%E5%BD%A2%E5%AD%A6/%E9%9A%90%E5%BC%8F%E6%9B%B2%E9%9D%A2%E4%B8%8E%E6%98%BE%E5%BC%8F%E6%9B%B2%E9%9D%A2/">
+                     
+										    隐式曲面与显式曲面
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										通用模型
+									</a>
+									
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										Transformer
+									</a>
+									
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										Attention
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E9%80%9A%E7%94%A8%E6%A8%A1%E5%9E%8B/Transformer/Attention/Attention%20is%20all%20you%20need/">
+                     
+										    Attention is all you need
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										Vision~
+									</a>
+									
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										~Survey
+									</a>
+									
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										Visual
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E9%80%9A%E7%94%A8%E6%A8%A1%E5%9E%8B/Transformer/Vision~/~Survey/Visual/A_Survey_on_Visual_Transformer/">
+                     
+										    A_Survey_on_Visual_Transformer
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										~Survey
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E9%80%9A%E7%94%A8%E6%A8%A1%E5%9E%8B/Transformer/~Survey/An%20image%20is%20worth%2016x16%20words%20Transformers%20for%20image%20recognition%20at%20scale/">
+                     
+										    An image is worth 16x16 words Transformers for image recognition at scale
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										设计模式
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E3%80%8AHead%20First%20%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E3%80%8B%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
+                     
+										    《Head First 设计模式》读书笔记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E3%80%8A%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%9B%B8%E5%85%B3%E7%B1%BB%E5%9E%8B%E8%AF%BB%E4%B9%A6%E6%80%BB%E7%BB%93/">
+                     
+										    《设计模式》相关类型读书总结
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E3%80%8A%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%A6%85%E3%80%8B%E8%AF%BB%E4%B9%A6%E5%B0%8F%E7%BB%93/">
+                     
+										    《设计模式之禅》读书小结
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										软件工程
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/Git%20%E4%BD%BF%E7%94%A8%E5%BF%83%E5%BE%97/">
+                     
+										    Git 使用心得
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/Github%E4%B8%8A%E5%86%99Blog/">
+                     
+										    Github上写Blog
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/Gitlab%E5%AE%89%E8%A3%85%E6%96%87%E6%A1%A3/">
+                     
+										    Gitlab安装文档
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/%E3%80%8A%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E4%B9%8B%E9%81%93%20Java%20%E7%89%88%E3%80%8B%E7%9A%84%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
+                     
+										    《单元测试之道 Java 版》的读书笔记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/%E3%80%8A%E6%B5%8B%E8%AF%95%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91%E3%80%8B%E7%9A%84%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
+                     
+										    《测试驱动开发》的读书笔记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/%E3%80%8A%E9%87%8D%E6%9E%84%E3%80%8B%E7%9A%84%E6%96%B9%E6%B3%95%E5%88%97%E8%A1%A8/">
+                     
+										    《重构》的方法列表
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/%E3%80%8A%E9%87%8D%E6%9E%84%E3%80%8B%E7%9A%84%E8%AF%BB%E4%B9%A6%E6%84%9F%E6%83%B3/">
+                     
+										    《重构》的读书感想
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/%E3%80%8A%E9%87%8D%E6%9E%84%E3%80%8B%E7%9A%84%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
+                     
+										    《重构》的读书笔记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/%E3%80%8A%E9%87%8D%E6%9E%84%E3%80%8B%E7%9A%84%E9%87%8D%E7%82%B9%E5%88%97%E8%A1%A8/">
+                     
+										    《重构》的重点列表
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/%E3%80%8A%E9%87%8D%E6%9E%84%E4%B8%8E%E6%A8%A1%E5%BC%8F%E3%80%8B%E7%9A%84%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
+                     
+										    《重构与模式》的读书笔记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/%E4%B8%BB%E8%A6%81%20GitHub%20%E9%A1%B9%E7%9B%AE%E5%88%97%E8%A1%A8/">
+                     
+										    主要 GitHub 项目列表
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/%E5%B7%A5%E5%85%B7%E7%9A%84%E6%84%8F%E4%B9%89/">
+                     
+										    工具的意义
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E8%BD%AF%E4%BB%B6%E5%B7%A5%E7%A8%8B/%E9%87%8D%E6%9E%84%E7%9A%84%E6%84%8F%E4%B9%89/">
+                     
+										    重构的意义
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										软件开发
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91/CUDA%E5%85%B3%E9%94%AE%E7%82%B9%E6%80%BB%E7%BB%93/">
+                     
+										    CUDA关键点总结
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										database
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91/database/MySQL%E5%AD%A6%E4%B9%A0%E5%85%B3%E9%94%AE%E7%82%B9%E6%80%BB%E7%BB%93/">
+                     
+										    MySQL学习关键点总结
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										MySQL
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91/database/MySQL/DataType/">
+                     
+										    DataType
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91/database/MySQL/Engine/">
+                     
+										    Engine
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91/database/Navicat%E5%AD%A6%E4%B9%A0%E5%85%B3%E9%94%AE%E7%82%B9%E6%80%BB%E7%BB%93/">
+                     
+										    Navicat学习关键点总结
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										ide
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91/ide/Eclipse%20%E5%AD%A6%E4%B9%A0%E6%97%A5%E5%BF%97/">
+                     
+										    Eclipse 学习日志
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91/ide/PyCharm%E5%AD%A6%E4%B9%A0%E5%85%B3%E9%94%AE%E7%82%B9%E6%80%BB%E7%BB%93/">
+                     
+										    PyCharm学习关键点总结
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91/ide/VSCode%E5%AD%A6%E4%B9%A0%E5%85%B3%E9%94%AE%E7%82%B9%E6%80%BB%E7%BB%93/">
+                     
+										    VSCode学习关键点总结
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91/ide/VSCode%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91/">
+                     
+										    VSCode插件开发
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										java
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91/java/HelloHibernate%20%E7%9A%84%E5%88%9B%E5%BB%BA%E8%BF%87%E7%A8%8B/">
+                     
+										    HelloHibernate 的创建过程
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91/java/Maven%20%E5%AD%A6%E4%B9%A0%E6%97%A5%E5%BF%97/">
+                     
+										    Maven 学习日志
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										javascript
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91/javascript/%E4%B8%80%E6%AC%BENode%E5%A4%9A%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7%EF%BC%88NVS%EF%BC%89/">
+                     
+										    一款Node多版本管理工具（NVS）
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										markdown
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91/markdown/Latex%20%E5%AD%A6%E4%B9%A0%E6%97%A5%E5%BF%97/">
+                     
+										    Latex 学习日志
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91/markdown/Markdown%20%E5%AD%A6%E4%B9%A0%E6%97%A5%E5%BF%97/">
+                     
+										    Markdown 学习日志
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91/markdown/MathJax%E5%AD%A6%E4%B9%A0%E6%97%A5%E5%BF%97/">
+                     
+										    MathJax学习日志
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91/markdown/Obsidian%E5%B8%B8%E7%94%A8%E6%8F%92%E4%BB%B6%E6%8E%A8%E8%8D%90%E4%BB%A5%E5%8F%8A%E4%B8%8B%E8%BD%BD%E9%93%BE%E6%8E%A5/">
+                     
+										    Obsidian常用插件推荐以及下载链接
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91/markdown/Pandoc%20%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+                     
+										    Pandoc 学习笔记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91/markdown/Pandoc%E7%94%A8%E6%88%B7%E6%89%8B%E5%86%8C/">
+                     
+										    Pandoc用户手册
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91/markdown/hexo%E5%8F%B2%E4%B8%8A%E6%9C%80%E5%85%A8%E6%90%AD%E5%BB%BA%E6%95%99%E7%A8%8B/">
+                     
+										    hexo史上最全搭建教程
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91/markdown/%E7%AC%94%E8%AE%B0%E8%BD%AF%E4%BB%B6%E9%80%89%E6%8B%A9/">
+                     
+										    笔记软件选择
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										python
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91/python/Conda%E5%AD%A6%E4%B9%A0%E5%85%B3%E9%94%AE%E7%82%B9%E6%80%BB%E7%BB%93/">
+                     
+										    Conda学习关键点总结
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91/python/Jupyter%E5%AD%A6%E4%B9%A0%E5%85%B3%E9%94%AE%E7%82%B9%E6%80%BB%E7%BB%93/">
+                     
+										    Jupyter学习关键点总结
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91/python/Numpy%E5%AD%A6%E4%B9%A0%E5%85%B3%E9%94%AE%E7%82%B9%E6%80%BB%E7%BB%93/">
+                     
+										    Numpy学习关键点总结
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91/python/Python%E5%AD%A6%E4%B9%A0%E5%85%B3%E9%94%AE%E7%82%B9%E6%80%BB%E7%BB%93/">
+                     
+										    Python学习关键点总结
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91/python/Python%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98%E5%B7%A5%E5%85%B7%E5%8C%85%E6%95%B4%E7%90%86/">
+                     
+										    Python数据挖掘工具包整理
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91/python/%E3%80%8APythonCookbook%E3%80%8B%E7%9A%84%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
+                     
+										    《PythonCookbook》的读书笔记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91/python/%E3%80%8APython%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B%E6%8C%87%E5%8D%97%E3%80%8B%E7%9A%84%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
+                     
+										    《Python面向对象编程指南》的读书笔记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91/python/%E8%87%AA%E5%AD%A6Python%E8%AF%BB%E8%BF%87%E7%9A%84%E4%B9%A6%E6%80%BB%E7%BB%93/">
+                     
+										    自学Python读过的书总结
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+							<ul>
+								<li class="file">
+									<a href="/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91/%E3%80%8A%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91%E4%B8%8E%E5%88%9B%E6%96%B0%E3%80%8B%E7%9A%84%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">
+                     
+										    《软件开发与创新》的读书笔记
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+							<ul>
+								<li class="directory">
+									<a href="#" class="directory">
+										<i class="fa fa-plus-square-o"></i>
+										正则表达式
+									</a>
+									
+							<ul>
+								<li class="file">
+									<a href="/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/%E5%B8%B8%E7%94%A8%E7%9A%84%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">
+                     
+										    常用的正则表达式
+                     
+									</a>
+								</li>
+								<div class="article-toc" style="display: none;"></div>
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+								</li>
+								
+							</ul>
+			
+		</div>
+	</div>
+</div>
+
+	<!-- 引入正文 -->
+	<div id="content" class="content">
+		<h1 id="article-title">
+	XMem_Long-Term_Video_Object_Segmentation_with_an_Atkinson-Shiffrin_Memory_Model
+</h1>
+
+<!-- meta -->
+<div class="article-meta">
+	
+
+	<span>ZhuYuanxiang</span>
+	<span>2023-05-18 18:17:18</span>
+
+  <div id="article-categories">
+    
+		  <span>Categories：</span>
+      
+    
+
+    
+		    <span>Tags：</span>
+        
+    
+  </div>
+
+</div>
+
+<!-- content -->
+<div id="article-content">
+	<h1 id="XMem-基于Atkinson-Shiffrin记忆模型的长时视频对象分割"><a href="#XMem-基于Atkinson-Shiffrin记忆模型的长时视频对象分割" class="headerlink" title="XMem: 基于Atkinson-Shiffrin记忆模型的长时视频对象分割"></a>XMem: 基于Atkinson-Shiffrin记忆模型的长时视频对象分割</h1><p>Cheng H K, Schwing A G. XMem: Long-Term Video Object Segmentation with an Atkinson-Shiffrin Memory Model[C]&#x2F;&#x2F;Computer Vision–ECCV 2022: 17th European Conference, Tel Aviv, Israel, October 23–27, 2022, Proceedings, Part XXVIII. Cham: Springer Nature Switzerland, 2022: 640-658.</p>
+<h1 id="Abstract"><a href="#Abstract" class="headerlink" title="Abstract"></a>Abstract</h1><p>XMem：是一种用于长时视频的视频对象分割框架，受Atkinson-Shiffrin记忆模型的启发，具有统一的特征记忆存储能力。先前，关于视频对象分割的工作通常只使用一种类型的特征记忆。对于超过一分钟的视频，单一功能的记忆模型将记忆消耗和准确性紧密绑定在一起。与此相反，我们基于Atkinson-Shiffrin模型开发了一个包含多个独立且深度连接的特征记忆存储框架，该架构包括：一个快速更新的<em>感官记忆</em>、一个高分辨率的<em>工作记忆</em>和一个紧凑并且持续的<em>长时记忆</em>。其中的关键是，我们开发了一个记忆增强算法，该算法可以周期性地将活跃使用的工作记忆元素整合到长时记忆中，从而避免了记忆爆炸，并且最大限度地减少了长时预测中的性能衰减。结合这种新的内存读取机制，XMem在长时视频数据集上极大地超越了当前最先进技术的性能。同时在短视频数据集中与最先进的方法不相上下。</p>
+<h1 id="Ch01-介绍"><a href="#Ch01-介绍" class="headerlink" title="Ch01 介绍"></a>Ch01 介绍</h1><p>视频对象分割（Video Object Segmentation，VOS）：在给定视频中用颜色突出指定的目标对象。在这里，我们专注于半监督场景，其中第一帧注释由用户提供，并且该方法尽可能准确地分割所有其他帧中的对象，同时侧重于长时视频处理条件下运行状态的实时性、在线能力和较小的内存占用。</p>
+<p>由于信息必须从给定注释的视频帧传播到其他视频帧，大多数VOS方法使用<em>特征记忆</em>存储与对象相关的深度网络表示。在线学习方法[^3][^49][^42]使用网络权重来记忆特征，这种方法需要测试阶段的训练，从而降低了预测的速度。递归方法则通过掩码[^39]或者隐表示[^20][^47]来传播最近帧的信息，但是这类方法容易出现信息漂移，并且难以解决遮挡问题。</p>
+<p><img src="/images/%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E8%A7%86%E9%A2%91%E5%A4%84%E7%90%86/%E8%A7%86%E9%A2%91%E5%AF%B9%E8%B1%A1%E5%88%86%E5%89%B2/%E5%8D%8A%E7%9B%91%E7%9D%A3%E5%AF%B9%E8%B1%A1%E5%88%86%E5%89%B2/XMem_Long-Term_Video_Object_Segmentation_with_an_Atkinson-Shiffrin_Memory_Model/image-20230515135210963.png" alt="image-20230515135210963"></p>
+<p>图1 最先进的VOS算法的缩放状态？<strong>左图</strong>：适时分割质量的内存缩放；<strong>右图</strong>：从标准的短时视频（Y轴）到长时视频（X轴）的分割质量缩放，其中虚线表示1:1的性能比。误差线表示适用条件下记忆采样的标准偏差。详见（Sec4.1）</p>
+<p>近来最先进的VOS方法使用注意力机制[^36][^18][^54][^9][^60]将存储在特征记忆中的过去帧的表示与从亲近观察到的需要分割的查询帧中提取的特征联系起来。尽管这些方法的性能不错，但是它们都需要大量的GPU内存来存储过去帧的表示，因此在实践中也就很难在消费级硬件上处理超过一分钟的视频。</p>
+<p>当今也存在专门为长时视频设计的VOS方法[^29][^27]，但是它们多会牺牲了分割质量。具体地说，这些方法在特征记忆插入时通过合并已经存储在特征记忆中的旧特征与提取出来的新特征从而减少了表示的大小。由于高分辨率特征被当场压缩，这些方法出现了少量的分割精度上的损失。图1展示了短时&#x2F;长时视频数据集中GPU内存消耗和分割质量之间的关系，详见（Sec4.1）。</p>
+<p>我们认为模型性能和GPU内存消耗之间的联系是使用单一特征记忆造成的，因此为了解决这种限制，我们提出了一种统一的内存结构，称为XMem。受到atkinson-shiffrin记忆模型[^1]的启发，该模型假设人类的记忆由三个部分组成，XMem也保持了三个独立并且深度连接的特征记忆存储：一个快速更新的<em>感官记忆</em>、一个高分辨率的工作记忆和一个紧凑并且持续的<em>长时记忆</em>。在XMem中，感官记忆对应着GRU[^11]的隐式表示，其每帧更新一次，提供了时间上的平滑性，但是由于表示漂移而无法执行长时预测。作为补充，工作记忆是从历史帧的子集中聚集起来的，并且平等地考虑每帧的影响从而避免了时间上的漂移。为了控制工作记忆的内存消耗，受人类记忆中整合机制的启发[^46]，XMem周期性地将其表示整合到长时记忆中。为了满足XMem将长期记忆存储为一组高度紧凑的原型，我们开发了一种记忆增强算法，将更加丰富的信息聚合到这些原型中，以防止由于子采样而导致的量化噪声。我们设计了一套时空记忆读取机制用于从工作记忆和长时记忆中读取信息。混合了三种特征记忆存储使得算法既允许以高精度处理长时视频，还能保持较低的GPU内存消耗。</p>
+<p>我们发现XMem在长时视频数据集[^29]上极大地超越了当前最先进的实验结果，更重要的是XMem在短时视频数据集上[^41][^57]也与当前最先进的实验结果不相上下。综上所述：</p>
+<ul>
+<li>我们设计了XMem。受Atkinson-Shiffrin记忆模型[^1]的启发，我们引入了具有不同时间尺度的记忆存储，并且为它们配备了记忆读取操作，满足长时视频和短时视频上的高质量视频对象分割的需要。</li>
+<li>我们开发了一种从工作记忆中选择表示原型的记忆整合算法，以及一种为长时记忆存储的需要将这些原型充实为紧凑的而且强大的表示的记忆增强算法。</li>
+</ul>
+<h1 id="Ch02-相关工作"><a href="#Ch02-相关工作" class="headerlink" title="Ch02 相关工作"></a>Ch02 相关工作</h1><h2 id="一般的VOS方法"><a href="#一般的VOS方法" class="headerlink" title="一般的VOS方法"></a>一般的VOS方法</h2><p>大多数VOS方法使用<em>特征记忆</em>来存储第一帧中给出的信息，和分割其他新的帧。在线学习方法在测试阶段依然训练或者微调它们的网络，因此在通常情况下会减慢推理速度[^3][^49][^32]。最近的改进成交显著[^34][^42][^37][^2]，但是它们仍然需要在线适应，这种适应对输入数据是敏感的，并且随着训练数据的增多，改进的收益也会慢慢失去。相比而言，基于跟踪的方法[^39][^52][^10][^22][^5][^35][^63][^19][^47][^20][^56]执行的是帧到帧的传播，因此在测试阶段依然有效，但是它们缺少长时上下文，并且在对象遮挡时经常会失去跟踪。虽然有些方法[^48][^59][^53][^23][^26][^6]会保留第一参考帧 用于全局匹配，但是受限于长时上下文的缺失，随着时间跨度增大，匹配变得更加困难。为了解决上下文限制，当前最先进的方法使用更多的过去帧作为特征记忆[^36][^13][^64][^21][^28][^58][^16]。特别是，时空记忆网络（Space-Time Memory，STM）[^36]的流行，以及其后的许多工作[^43][^8][^18][^54][^50][^31][^9][^44][^33]。在这些扩展中，由于STCN[^9]的简单有效，我们将其作为我们的工作记忆的主干。然而，因为STM的不断增长的特征记忆库，许多变体无法处理长时视频。AOT[^60]是最近的一项工作，它将注意力机制扩展到了转换器，但仍然没有解决GPU内存爆炸问题。一些方法[^33][^14]使用局部特征记忆，但是它们没有考虑容器外的长时上下文。相比而言，XMem使用多个记忆存储去捕捉不同的时间上下文，同时得益于我们的长时记忆和整合使得GPU内存的使用受到了严格地限制。</p>
+<h2 id="专门处理长时视频的方法"><a href="#专门处理长时视频的方法" class="headerlink" title="专门处理长时视频的方法"></a>专门处理长时视频的方法</h2><p>Liang等人[^29]提出了AFB-URR方法，该方法选择性地使用指数移动平均值将给定的记忆元素与现有的靠得很近的记忆元素合并，或者将其添加为一个新的元素。当特征记忆达到预先设定的限制时，基于最少使用机制来去除未使用的特征。Li等人[^27]提出了一种全局上下文模块，它平均了所有过去的记忆到一个单一的表示中，从而保证GPU内存的增长不再随时间改变。然而，这两种方法都过早地将新来的高分辨率特征记忆压缩成一个紧凑的表示，从而牺牲了分割的精度。我们提出的多存储特征记忆则避免了这种过早地压缩，并且在短时和长时预测中实现了更高的准确性。</p>
+<h1 id="Ch03-XMem"><a href="#Ch03-XMem" class="headerlink" title="Ch03 XMem"></a>Ch03 XMem</h1><h2 id="Sec3-1-概述"><a href="#Sec3-1-概述" class="headerlink" title="Sec3.1 概述"></a>Sec3.1 概述</h2><p>图2提供了XMem的概述。为了读者理解，我们采用的是单目标对象，但是XMem本身是为多目标对象设计的。给定第一帧 （图2左上角）的图像和目标对象掩码，XMem跟踪对象并且为后续查询帧生成相应的掩码。为此，我们首先使用输入数据来初始化不同的特征记忆存储。对于每个后续的查询帧 ，我们分别从长期记（Sec3.3）、工作记忆（Sec3.4）和感官记忆（Sec3.5）中进行记忆读取（Sec3.2）。读出的特征用于生成分割掩膜。然后，我们以不同的频率更新每个特征记忆存储：每帧更新感官记忆、每$r$帧在工作记忆中插入特征。当工作记忆达到预先定义的最大帧数$T_{\max}$，就以高度紧凑的形式将工作记忆中的特征融合到长期记忆中。当长期记忆也要溢出时（这仅会发生在处理上千帧以后），抛弃过时的特征从而限制GPU内存的最大使用量。这些特征记忆存储的协同工作，即使对于很长的视频，也能以低GPU内存使用率提供高质量的功能。</p>
+<p><img src="/images/%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E8%A7%86%E9%A2%91%E5%A4%84%E7%90%86/%E8%A7%86%E9%A2%91%E5%AF%B9%E8%B1%A1%E5%88%86%E5%89%B2/%E5%8D%8A%E7%9B%91%E7%9D%A3%E5%AF%B9%E8%B1%A1%E5%88%86%E5%89%B2/XMem_Long-Term_Video_Object_Segmentation_with_an_Atkinson-Shiffrin_Memory_Model/image-20230515160732763.png" alt="image-20230515160732763"></p>
+<p>图2. XMem的概述。记忆读取操作从全部三个记忆存储中提取相关特征，并且使用这些特征来产生掩膜。为了融合新的记忆，感官记忆每帧更新一次，而工作记忆每;$r$帧更新一次。当工作记忆被填满时，它将以紧凑的形式融合到长期记忆中，随着时间的推移，长时记忆会忘记过时的特征。</p>
+<p>XMem由三个端到端的可训练的卷积网络组成（见图3）：一个提取特定查询图像特征的<em>查询编码器</em>、一个获取记忆读取步骤的输出以生成对象掩膜的<em>解码器</em>，以及一个将图像与对象掩码混合以提取新的记忆特征的<em>值编码器</em>，这些网络的细节参见（Sec3.6）。在下文中，我们将首先介绍记忆读取操作，然后再详细讨论每个特征记忆存储。</p>
+<p><img src="/images/%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E8%A7%86%E9%A2%91%E5%A4%84%E7%90%86/%E8%A7%86%E9%A2%91%E5%AF%B9%E8%B1%A1%E5%88%86%E5%89%B2/%E5%8D%8A%E7%9B%91%E7%9D%A3%E5%AF%B9%E8%B1%A1%E5%88%86%E5%89%B2/XMem_Long-Term_Video_Object_Segmentation_with_an_Atkinson-Shiffrin_Memory_Model/image-20230515163103151.png" alt="image-20230515163103151"></p>
+<p>图3. 对单个帧执行记忆读取和掩膜解码的过程。从图像中提取查询$\mathbf{q}$，并且基于注意力从工作记忆和长时记忆中执行记忆读取获得特征$\mathbf{F}$，再与感官记忆一起送入到解码器去生成掩膜。对于每$r$帧，我们将新特征存储到工作记忆中，并对感官记忆执行一次深度更新。</p>
+<h2 id="Sec3-2-记忆读取（Memory-Reading）"><a href="#Sec3-2-记忆读取（Memory-Reading）" class="headerlink" title="Sec3.2 记忆读取（Memory Reading）"></a>Sec3.2 记忆读取（Memory Reading）</h2><p>图3描述了单个帧的记忆读取和掩膜生成过程。掩膜是通过解码器计算的，解码器使用短时感官记忆$\mathbf{h}_{t-1}\in\mathbb{R}^{C^h\times H\times W}$和存储在长时记忆与工作记忆中的表示信息的特征$\mathbf{F}\in\mathbb{R}^{C^v\times H\times W}$。特征通过读出操作计算：<br>$$<br>\mathbf{F&#x3D;vW(k,q)}<br>$$<br>其中，$\mathbf{k}\in\mathbb{R}^{C^k\times N}$和$\mathbf{v}\in\mathbb{R}^{C^v\times N}$是共$N$个元素的$C^k$维键（key）和$C^v$维的值（value），而且$\mathbf{W(k,q)}$是大小为$N\times HW$的关联矩阵，用于表示读出操作，这种读出操作是由键$\mathbf{k}$和查询$\mathbf{q}\in\mathbb{R}^{C^k\times HW}$控制，而查询是通过查询帧从查询编码器中获得。读出操作将每个查询元素映射到所有$N$个记忆元素构成的分布，并且相应地聚合它们的值$\mathbf{v}$。</p>
+<p>关联矩阵$\mathbf{W(k,q)}$是通过在相似度矩阵$\mathbf{S(k,q)}$的记忆维度（行）上应用 $\text{softmax()}$函数获得，相似度矩阵$\mathbf{S(k,q)}$包含了成对的每个键元素和每个查询元素的相似度信息。为了计算相似度矩阵，我们注意到STCN[^9]中提出了L2相似度比点积[^36]更加稳定，但是表现力相对较弱（如：不能编码记忆元素的置信度水平）。为了解决这个问题，我们通过引入两个新的缩放项提出了新的相似度函数（各向异性L2，anisotropic L2），这两个缩放项打破了键和查询之间的对称性，可视化效果参见图4。</p>
+<p><img src="/images/%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E8%A7%86%E9%A2%91%E5%A4%84%E7%90%86/%E8%A7%86%E9%A2%91%E5%AF%B9%E8%B1%A1%E5%88%86%E5%89%B2/%E5%8D%8A%E7%9B%91%E7%9D%A3%E5%AF%B9%E8%B1%A1%E5%88%86%E5%89%B2/XMem_Long-Term_Video_Object_Segmentation_with_an_Atkinson-Shiffrin_Memory_Model/image-20230515170254321.png" alt="image-20230515170254321"></p>
+<p>图4. 2D中相似度函数的可视化效果，背景颜色展示了每个记忆元素（RGB）的影响。L2相似性[^9]（图4a）均匀地考虑了所有的存储元素；收缩项（图4b）允许编码元素级别的置信度（通过点的大小可视化），该置信度考虑了混合权重的影响区域和锐度。选择项允许记忆关于特定查询的解释，（图4c）和（图4d）展示了分别关注垂直和水平两个维度的不同查询的效果。（图4b）可以看作选项项是各向同性的情况。当组合在一起后，我们可以对更加复杂的相似度关系进行建模。</p>
+<p>具体来说，键与收缩项$\mathbf{s}\in[1,\infin)^N$相关联，查询与选择项$\mathbf{e}\in[0,1]^{C^k\times HW}$相关联。然后，第$i$个键元素与第$j$个查询元素之间的相似度的计算公式：<br>$$<br>\mathbf{S(k,q)}<em>{ij}&#x3D;-\mathbf{s}<em>i\sum_c^{C^k}\mathbf{e}</em>{cj}(\mathbf{k}</em>{ci}-\mathbf{q}_{cj})^2<br>$$<br>当$\mathbf{s}<em>i&#x3D;\mathbf{e}</em>{cj}&#x3D;1,\forall i,\forall j,\forall c$，公式与原始的L2相似度[^9]等价。收缩项$\mathbf{s}$直接相似度，并且显式编码了置信度——高收缩度表示低置信度，并且导致了更加局部的影响效果。请注意，如果查询恰好与低置信度的键相一致，那么低置信度的键也能拥有大的贡献，从而避免了点积中存在的记忆主导问题（详细讨论参见[^9]）。不同的是，选择项$\mathbf{e}$控制着键空间中每个通道（channel）相对重要性，使得注意力更多放在更易区分的通道上。</p>
+<p>选择项$\mathbf{e}$与查询$\mathbf{q}$是由查询编码器一起生成的。缩放项$\mathbf{s}$与工作记忆和长时记忆中的键$\mathbf{k}$和值$\mathbf{v}$一起收集的。这个集合的简单实现就是在最后一个维度进行拼接：$\mathbf{k&#x3D;k^w\oplus k^{lt}}$和$\mathbf{v&#x3D;v^w\oplus v^{lt}}$，其中的上标分别表示工作记忆和长时记忆。工作记忆由键$\mathbf{k^w}\in\mathbb{R}^{C^k\times THW}$和值$\mathbf{v^w}\in\mathbb{R}^{C^v\times THW}$，其中$T$是工作记忆的帧数。长时记忆由键$\mathbf{k^{lt}}\in\mathbb{R}^{C^k\times L}$和值$\mathbf{v^{lt}}\in\mathbb{R}^{C^v\times L}$组成，其中$L$是长时记忆原型的数量。因此，工作记忆和长时记忆的元素总数是$N&#x3D;THW+L$。</p>
+<p>接下来，我们将详细讨论特征记忆存储。</p>
+<h2 id="Sec3-3-长时记忆（Long-Term-Memory）"><a href="#Sec3-3-长时记忆（Long-Term-Memory）" class="headerlink" title="Sec3.3 长时记忆（Long-Term Memory）"></a>Sec3.3 长时记忆（Long-Term Memory）</h2><h2 id="动机"><a href="#动机" class="headerlink" title="动机"></a>动机</h2><p>长时记忆是处理长时视频的关键。为了存储一级紧凑的（GPU内存消耗少）但是具有表示性的（分割质量高）的记忆特征，我们设计了一个<em>记忆整合</em>过程。整个过程从工作记忆中选择<em>原型</em>，再用<em>记忆增强</em>算法来丰富特征，详见图5。</p>
+<p><img src="/images/%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E8%A7%86%E9%A2%91%E5%A4%84%E7%90%86/%E8%A7%86%E9%A2%91%E5%AF%B9%E8%B1%A1%E5%88%86%E5%89%B2/%E5%8D%8A%E7%9B%91%E7%9D%A3%E5%AF%B9%E8%B1%A1%E5%88%86%E5%89%B2/XMem_Long-Term_Video_Object_Segmentation_with_an_Atkinson-Shiffrin_Memory_Model/image-20230516095048814.png" alt="image-20230516095048814"></p>
+<p>图5. 记忆整合过程。给定图片，提取特征作为记忆键（图像步幅加大）。用颜色将特征可视化。对于记忆整合，首先从候选（所有网格）中选取原型键（星型网格），然后从所有候选中调用增强（非局部聚合值）以生成更具有表示性的原型值（黄金轮廓）。获得的原型键与值被加入到长时记忆中。这里只展示了一帧——实际情况是一次合并将使用多个帧 。</p>
+<p>当工作记忆达到预定义的大小$T_\max$时，系统执行记忆整合。第一帧（包含了用户提供的基准数据）和最近的$T_\min-1$记忆帧将会保存在工作记忆中作为一个高分辨率的缓存，而其余帧（$T_\max-T_\min$帧）是转换为长时记忆表示的候选帧。这些候选的键与值分别记作$\mathbf{k^c\subset k^w}$和$\mathbf{v^c\subset v^w}$。后续，原型选择过程就是挑选一组紧凑的原始键$\mathbf{k^p\subset k^c}$，记忆整合算法生成与这些原型键相关的特征丰富的原型值$\mathbf{v^p}$。最后，这些原型键和值被添加到长时记忆$\mathbf{k^{lt}}$和$\mathbf{v^{lt}}$中。</p>
+<h2 id="原型选择"><a href="#原型选择" class="headerlink" title="原型选择"></a>原型选择</h2><p>在这步中，从候选中采样一个小的表示子集$\mathbf{k^p\subset k^c}$作为<em>原型</em>。其本质是只挑选少量原型，因为它们的数量与产生的长时记忆的大小成正比。受人类记忆的启发，挑选高频使用的候选值，从而将频繁访问或者研究的模式放入长时记忆中。具体就是选择最常用的$P$个候选作为原型，记忆元素的使用频率基于关联矩阵$\mathbf{W}$（等式1）中的累积关联度（概率质量函数），并且基于每个候选在工作记忆中的持续时间执行归一化。需要注意的是，每个候选的持续时间至少是$r\cdot(T_\min-1)$，才能获得平移的使用频率统计数据。于是获得的这些原型的键作为$\mathbf{k^p}\in\mathbb{R}^{C^k\times P}$。</p>
+<h2 id="记忆增强"><a href="#记忆增强" class="headerlink" title="记忆增强"></a>记忆增强</h2><p>到目前为止，从候选键$\mathbf{k^c}$中采样的原型键$\mathbf{k^p}$是稀疏和离散的。如果以同样的方式对原型值$\mathbf{v^p}$执行采样，那么得到的原型将不可避免地代表其他候选，并且容易出现量化噪声。避免这个问题的常用技术是反量化噪声滤波器（如：高斯）[^15]。基于相似的动机，信号执行滤波，并且将更多的信息聚合到每个采样的原型中。虽然标准化的滤波可以很容易地在图像平面 （2D）或者时间体（3D）上执行，但是执行结果会导致特征模糊，尤其是在物体边界附近。为了缓解这个问题，我们转而在高维（$C^k$）键空间中构造领域执行滤波，从而利用由键$\mathbf{k^p}$和$\mathbf{k^c}$给出的高维表示的邻接信息。由于这些键必须被计算和存储用于记忆读取，所以由此产生的运行时间和内存消耗也是值得的。</p>
+<p>具体来讲，对于每个原型，我们通过加权平均来聚合来自所有候选值$\mathbf{v^c}$的值。在键的相似性上使用softmax计算权重。为此，我们顺便重用了（等式2）。通过使用候选键$\mathbf{k^c}$替换记忆键$\mathbf{k}$，使用原型键$\mathbf{k^p}$替换查询$\mathbf{q}$，我们获得了相似度矩阵$\mathbf{S(k^c,k^p)}$。如前所述，我们使用softmax获得了关联矩阵$\mathbf{W(k^c,k^p)}$（其中，每个原型对应候选的一个分布）。然后，我们通过下面的公式计算原型值$\mathbf{v^p}$：<br>$$<br>\mathbf{v^p&#x3D;v^c W(k^c,k^p)}<br>$$<br>最后，$\mathbf{k^p}$和$\mathbf{v^p}$被分别添加到长时记忆$\mathbf{k^{lt}}$和$\mathbf{v^{lt}}$中，从而完成记忆整合过程。注意，相似的原型逼近也被用于transformer模型中[^55][^38]。不同的是，我们的方法使用了一种适用于视频对象分割的新型原型选择方案。</p>
+<h2 id="移除过时特征"><a href="#移除过时特征" class="headerlink" title="移除过时特征"></a>移除过时特征</h2><p>虽然长时记忆紧凑性高（压缩率$&gt;6000%$），但是不断添加新的特征也会造成内存的溢出。根据经验，6GB的内存空间（如：中等消费级GPU）可以处理34000帧。为了处理更长的视频，我们引入了最小频率使用算法[^29]，区别在于我们的“使用”（Sec3.3中定义的原型选择）是由top-k滤波[^8]后的累积关联定义的，这样的滤波避免了引入额外的阈值超参数。当超过了预定义的内存使用限制时，使用频率最低的长时记忆元素将会被剔除。</p>
+<p>长时记忆是保证长时视频精准有效分割的关键。接下来，我们将讨论工作记忆，这个是精准地短时预测的关键，并且学是长时记忆的基础。</p>
+<h2 id="Sec3-4-工作记忆（Working-Memory）"><a href="#Sec3-4-工作记忆（Working-Memory）" class="headerlink" title="Sec3.4 工作记忆（Working Memory）"></a>Sec3.4 工作记忆（Working Memory）</h2><p>工作记忆将高分辨率特征存储在临时缓冲区中，有助于在几秒钟的时间范围内进行准确地匹配，还充当了长时记忆的网关，因为每个记忆元素的重要性是通过它们在工作记忆中的使用频率进行估计的。</p>
+<p>在我们的多存储特征记忆设计中，工作记忆的经典的实例化已经足够得到好的结果，大幅度地使用STCN风格[^9]的特征记忆库（基线）作为我们的工作记忆。为了全文完整性，我们将会给出简要地说明，详情请参考[^9]。注意，我们的记忆读取步骤（Sec3.2）与[^9]仍然存在显著不同。工作记忆由键$\mathbf{k^w}\in\mathbb{R}^{C^k\times THW}$和值$\mathbf{v^w}\in\mathbb{R}^{C^v\times THW}$组成，其中$T$为工作记忆帧的数目。键是从图像中编码得到的，并且与查询$\mathbf{q}$位于相同的嵌入空间中；而值是从图像和掩膜中编码得到的。图3右下角描述了工作记忆更新过程。在每$r$帧中，第一步复制查询为新的键；第二步输入图像和预测掩膜到值编码器中生成新的值。新的键与值添加到工作记忆中，供后续的帧通过记忆读取来使用。为了避免内存爆炸，我们通过将额外的帧合并到长时记存储中来限制工作记忆中的帧的数目$T:T_\min\leq T&lt;T_\max$（详见Sec3.3）。</p>
+<h2 id="Sec3-5-感官记忆（Sensory-Memory）"><a href="#Sec3-5-感官记忆（Sensory-Memory）" class="headerlink" title="Sec3.5 感官记忆（Sensory Memory）"></a>Sec3.5 感官记忆（Sensory Memory）</h2><p>感官记忆专注于短时，并且保留了低层级的信息（如：对象位置），这样就很好地补充了工作记忆与长时记忆中空间位置信息的缺失。与工作记忆类似，我们也找到了一个能够很好地工作的经典基线。</p>
+<p>具体来说，感官记忆存储一个隐式的表示$\mathbf{h_t}\in\mathbb{R}^{C^h\times H\times W}$，初始化为零向量，并且通过门控递归单元（Gated Recurrent Unit，GRU）[^11]实现传播（参见图6）。这个感官记忆每帧都使用解码器的多尺度特征实现更新。在每$r$帧，当一个新的工作记忆帧生成时，执行<em>深度更新</em>。从值编码器中获得的特征使用另一个GRU刷新感官记忆，使得感官记忆可以抛弃已经保存在工作记忆中的冗余信息，还能够在重用现有功能时，以最小的开销从深度网络（如：值编码器）中接收更新。</p>
+<p><img src="/images/%E5%9F%BA%E7%A1%80%E7%90%86%E8%AE%BA/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E8%A7%86%E9%A2%91%E5%A4%84%E7%90%86/%E8%A7%86%E9%A2%91%E5%AF%B9%E8%B1%A1%E5%88%86%E5%89%B2/%E5%8D%8A%E7%9B%91%E7%9D%A3%E5%AF%B9%E8%B1%A1%E5%88%86%E5%89%B2/XMem_Long-Term_Video_Object_Segmentation_with_an_Atkinson-Shiffrin_Memory_Model/image-20230516114749266.png" alt="image-20230516114749266"></p>
+<p>图6. 感官记忆更新预览。从解码器中得到的多尺度特征被下采样，然后作为输入拼接到GRU。在深度更新中，额外使用了一个单独的GRU来刷新感官记忆。</p>
+<h2 id="Sec3-6-实现细节"><a href="#Sec3-6-实现细节" class="headerlink" title="Sec3.6 实现细节"></a>Sec3.6 实现细节</h2><p>在这里，我们描述一些关键的实现细节。为了完全再现训练和推理，请参阅我们的开源实现。</p>
+<h2 id="网络"><a href="#网络" class="headerlink" title="网络"></a>网络</h2><p>根据通常实践[^36][^43][^29][^9]，我们采用ResNets[^17]作为特征提取器，移除了分类头和最后的卷积阶段，输出结果为步幅16的特征。查询编码器基于ResNet-50，值编码器基于RresNet-18，参见[^9]。为了生成查询$\mathbf{q}$、收缩项$\mathbf{s}$和选择项$\mathbf{e}$，我们将独立的$3\times3$卷积投影应用于查询编码器的特征输出。注意到查询和收缩项都用于当前的查询帧，而且当且仅当插入新的工作记忆时，选择项被复制到内存中（沿着图3的复制路径），以便未来使用。同样参考[^9]设置$C^k&#x3D;64,C^v&#x3D;512,C^h&#x3D;64$。为了控制收缩因子的范围在$[1,\infin)$应用函数$(\cdot)^2+1$；为了控制选择因子的范围在$[0,1]$应用函数$\text{sigmoid}(\cdot)$。</p>
+<p>解码器拼接隐式表示$\mathbf{h}_{t-1}$和读出特征$\mathbf{F}$。然后，它按照同一时间$2\times$速率迭代上采样直到步幅为4，同时根据STM[^36]在每个层级融合来自查询编码器的跳跃连接。步幅为4的特征图按照$3\times3$卷积投影到单通道的$\text{logit}(\cdot)$函数，再通过双线性上采样到输入分辨率。在多对象场景中，通过软聚合[^36]从不同的对象去融合最终的$\text{logits}(\cdot)$。注意，计算的主体（如：查询编码器、关联矩阵$\mathbf{W}$）可以在不同的对象之间共享，因为它们仅以图像为条件[^9]。</p>
+<h2 id="训练"><a href="#训练" class="headerlink" title="训练"></a>训练</h2><p>在[^36][^43][^29][^9]之后，我们首先通过三个由变形的静态图像生成的合成序列上预训练网络。我们采用的是未经修改的STCN[^9]开源实现，这个代码也用于训练[^45][^51][^25][^62][^7]。接下来，我们使用课程采样[^36]在YouTubeVOS[^57]和DAVIS[^41]数据集上执行主要训练。我们注意到三的默认序列长度不足以训练感官记忆，因为它严重依赖于初始的状态。因此，我们转而对长度为8的序列进行采样。为了减少训练时间，并且进行正则化，随机选择最多三个（而不是所有）过去帧作为训练时间中任何查询的工作记忆。在两个RTX A6000 的GPU上整个训练过程大约需要35个小时。深度更新以0.2的概率执行，这个概率即$1&#x2F;r$，$r&#x3D;5$依据默认的参考[^9]。我们还在BL30K[^8][^12][^4]上进行预训练，从而进一步提高了准确性。我们使用星号标记任何使用BL30K的方法。</p>
+<p>我们使用了自举交叉熵损失和骰子损失，其权重依据[^60]。为了优化需要，我们使用AdamW[^24][^30]，其学习率为$1e-5$，权重衰减为$0.05$，在静态图像预训练中批次大小为16，迭代次数为150K，在主训练中批次大小为8，迭代次数为110K。在第一次80K迭代之后，我们将学习率降低了10倍。为了进行公平的比较，我们还使用上述设置重新训练了STCN[^9]基线。STCN的性能没有显著地差异（见附录）。</p>
+<h1 id="Ch04-实验结果"><a href="#Ch04-实验结果" class="headerlink" title="Ch04 实验结果"></a>Ch04 实验结果</h1><p>除非另有说明，我们使用$T_\min&#x3D;5,T_\max&#x3D;10,P&#x3D;128$，从而导致从工作记忆到长时记忆的压缩比率为$6328%$。我们将长时记忆元素的最大数量设置为10000，这意味着XMem消耗的GPU内存不会超过1.4GB，从而有可能在移动设备上应用这个框架。我们使用$k&#x3D;30$的top-k滤波[^8]，480p的分辨率视频。为了进行评估，我们使用标准指标（越高越好）[^40]：Jaccard指数$\mathcal{J}$、轮廓精度$\mathcal{F}$和它们的均值$\mathcal{J}&amp;\mathcal{F}$。对于YouTubeVOS[^57]，分别为“可见”类（下标S)和“不可见”类（下标U）计算$\mathcal{J}$和$\mathcal{F}$，$\mathcal{G}$是可见类和不可见类的平均$\mathcal{J}&amp;\mathcal{F}$。对于AOT[^60]，我们与它们的R50变体进行了比较，因为变体与我们具有相同的ResNet骨架。</p>
+<h2 id="Sec4-4-局限性"><a href="#Sec4-4-局限性" class="headerlink" title="Sec4.4 局限性"></a>Sec4.4 局限性</h2><p>当目标物体移动过快或者存在严重的运动模糊时，我们的方法有时会失败，这是因为即使是更新最快的感官记忆也无法跟踪变化（参见附录）。我们认为，具有比基线实例更大的感受野可能会有所帮助。</p>
+<h1 id="Ch05-结论"><a href="#Ch05-结论" class="headerlink" title="Ch05 结论"></a>Ch05 结论</h1><p>据我们所知，我们展示XMem是第一个用于视频对象分割的多存储特征记忆模型。XMem在长时视频和短时视频中都能以最小的GPU内存使用量实现出色的性能。我们相信XMem是在移动设备上满足VOS实用性的好的开始，也希望能够引起人们对长时VOS任务更多的关注。</p>
+
+</div>
+
+<!-- post-guide -->
+
+    <div class="post-guide">
+        <div class="item left">
+            
+              <a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E8%A7%86%E9%A2%91%E5%A4%84%E7%90%86/%E8%A7%86%E9%A2%91%E5%AF%B9%E8%B1%A1%E5%88%86%E5%89%B2/%E7%BB%BC%E8%BF%B0/Deep%20learning%20for%20video%20object%20segmentation%20a%20review/Sections/Section_4_Methods/">
+                  <i class="fa fa-angle-left" aria-hidden="true"></i>
+                  Section_4_Methods
+              </a>
+            
+        </div>
+        <div class="item right">
+            
+              <a href="/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E8%A7%86%E9%A2%91%E5%A4%84%E7%90%86/%E8%A7%86%E9%A2%91%E5%AF%B9%E8%B1%A1%E5%88%86%E5%89%B2/%E7%BB%BC%E8%BF%B0/Deep%20learning%20for%20video%20object%20segmentation%20a%20review/Sections/Section_2_Background/">
+                Section_2_Background
+                <i class="fa fa-angle-right" aria-hidden="true"></i>
+              </a>
+            
+        </div>
+    </div>
+
+
+<!-- comment - giscus -->
+
+
+<!-- comment - valine -->
+
+
+<script>
+	
+	
+</script>
+	</div>
+	<div id="footer">
+	<p>
+	©<span id="footerYear-start"></span>-<span id="footerYear-end"></span>
+
+	
+	    <a href="/">ZhuYuanxiang</a>
+	
+	
+	
+		|
+		<span id="busuanzi_container_site_pv">
+			pv
+			<span id="busuanzi_value_site_pv"></span>
+		</span>
+		|
+		<span id="busuanzi_container_site_uv"> 
+			uv
+			<span id="busuanzi_value_site_uv"></span>
+		</span>
+	
+	<br>
+	Theme <a href="//github.com/wujun234/hexo-theme-tree" target="_blank">Tree</a>
+	by <a href="//wujun.me" target="_blank">Wu Jun</a>
+	Powered by <a href="//hexo.io" target="_blank">Hexo</a>
+	</p>
+</div>
+
+
+<script type="text/javascript">
+	document.getElementById('footerYear-start').innerHTML = new Date().getFullYear() + '';
+</script>
+
+<script type="text/javascript">
+	document.getElementById('footerYear-end').innerHTML = new Date().getFullYear() + '';
+</script>
+
+	<button id="totop-toggle" class="toggle"><i class="fa fa-angle-double-up" aria-hidden="true"></i></button>
+</body>
+</html>
